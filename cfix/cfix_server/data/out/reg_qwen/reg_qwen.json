@@ -1,0 +1,196 @@
+{
+  "meta": {
+    "dataset": "mbpp",
+    "samples": 5,
+    "max_round": 3,
+    "llm_ready": true,
+    "llm_strict": true,
+    "provider": "qwen",
+    "model": "qwen3-coder-next",
+    "sandbox_backend": "docker"
+  },
+  "summary": {
+    "samples": 5,
+    "init_pass_rate": 1.0,
+    "final_pass_rate": 2.0,
+    "repaired_cnt": 0,
+    "trace_non_empty_problem_cnt": 0
+  },
+  "items": [
+    {
+      "problem_no": 1,
+      "title": "两数求和",
+      "scene": "func",
+      "problem_text": "请实现 Python 函数 solve(a, b)，返回两个整数之和。",
+      "total_cnt": 2,
+      "init_pass_cnt": 2,
+      "final_pass_cnt": 2,
+      "init_result": "pass",
+      "final_result": "pass",
+      "round_used": 0,
+      "repaired": false,
+      "gen_source": "llm",
+      "gen_error": "",
+      "rounds": [],
+      "final_cases": [
+        {
+          "assert_text": "assert solve(1, 2) == 3",
+          "result": "pass",
+          "actual_out": "",
+          "err_type": null,
+          "err_msg": null,
+          "time_ms": 16
+        },
+        {
+          "assert_text": "assert solve(-3, 5) == 2",
+          "result": "pass",
+          "actual_out": "",
+          "err_type": null,
+          "err_msg": null,
+          "time_ms": 15
+        }
+      ]
+    },
+    {
+      "problem_no": 2,
+      "title": "三个数取最大值",
+      "scene": "func",
+      "problem_text": "请实现 Python 函数 solve(a, b, c)，返回三个整数中的最大值。",
+      "total_cnt": 2,
+      "init_pass_cnt": 2,
+      "final_pass_cnt": 2,
+      "init_result": "pass",
+      "final_result": "pass",
+      "round_used": 0,
+      "repaired": false,
+      "gen_source": "llm",
+      "gen_error": "",
+      "rounds": [],
+      "final_cases": [
+        {
+          "assert_text": "assert solve(1, 5, 3) == 5",
+          "result": "pass",
+          "actual_out": "",
+          "err_type": null,
+          "err_msg": null,
+          "time_ms": 16
+        },
+        {
+          "assert_text": "assert solve(-1, -2, -3) == -1",
+          "result": "pass",
+          "actual_out": "",
+          "err_type": null,
+          "err_msg": null,
+          "time_ms": 15
+        }
+      ]
+    },
+    {
+      "problem_no": 3,
+      "title": "字符串反转",
+      "scene": "func",
+      "problem_text": "请实现 Python 函数 solve(s)，返回字符串 s 的反转结果。",
+      "total_cnt": 2,
+      "init_pass_cnt": 2,
+      "final_pass_cnt": 2,
+      "init_result": "pass",
+      "final_result": "pass",
+      "round_used": 0,
+      "repaired": false,
+      "gen_source": "llm",
+      "gen_error": "",
+      "rounds": [],
+      "final_cases": [
+        {
+          "assert_text": "assert solve('abc') == 'cba'",
+          "result": "pass",
+          "actual_out": "",
+          "err_type": null,
+          "err_msg": null,
+          "time_ms": 15
+        },
+        {
+          "assert_text": "assert solve('level') == 'level'",
+          "result": "pass",
+          "actual_out": "",
+          "err_type": null,
+          "err_msg": null,
+          "time_ms": 15
+        }
+      ]
+    },
+    {
+      "problem_no": 4,
+      "title": "阶乘",
+      "scene": "func",
+      "problem_text": "请实现 Python 函数 solve(n)，返回非负整数 n 的阶乘。规定 0 的阶乘为 1。",
+      "total_cnt": 2,
+      "init_pass_cnt": 2,
+      "final_pass_cnt": 2,
+      "init_result": "pass",
+      "final_result": "pass",
+      "round_used": 0,
+      "repaired": false,
+      "gen_source": "llm",
+      "gen_error": "",
+      "rounds": [],
+      "final_cases": [
+        {
+          "assert_text": "assert solve(0) == 1",
+          "result": "pass",
+          "actual_out": "",
+          "err_type": null,
+          "err_msg": null,
+          "time_ms": 18
+        },
+        {
+          "assert_text": "assert solve(5) == 120",
+          "result": "pass",
+          "actual_out": "",
+          "err_type": null,
+          "err_msg": null,
+          "time_ms": 15
+        }
+      ]
+    },
+    {
+      "problem_no": 5,
+      "title": "统计元音字母",
+      "scene": "func",
+      "problem_text": "请实现 Python 函数 solve(s)，统计字符串 s 中元音字母 a e i o u 的数量，不区分大小写。",
+      "total_cnt": 2,
+      "init_pass_cnt": 2,
+      "final_pass_cnt": 2,
+      "init_result": "pass",
+      "final_result": "pass",
+      "round_used": 0,
+      "repaired": false,
+      "gen_source": "llm",
+      "gen_error": "",
+      "rounds": [],
+      "final_cases": [
+        {
+          "assert_text": "assert solve('hello') == 2",
+          "result": "pass",
+          "actual_out": "",
+          "err_type": null,
+          "err_msg": null,
+          "time_ms": 14
+        },
+        {
+          "assert_text": "assert solve('AEIOUxyz') == 5",
+          "result": "pass",
+          "actual_out": "",
+          "err_type": null,
+          "err_msg": null,
+          "time_ms": 14
+        }
+      ]
+    }
+  ],
+  "case_pack": {
+    "success_case": null,
+    "rollback_case": null,
+    "failure_case": null
+  }
+}

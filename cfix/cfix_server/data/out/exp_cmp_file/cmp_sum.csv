@@ -1,0 +1,4 @@
+﻿mode,label,sample_cnt,init_pass_rate,final_pass_rate,repair_success_rate,avg_round,avg_time_ms,delta_pass_rate
+direct,单轮生成,8,0.875,0.875,0.0,0.0,314,0.0
+iter_no_tl,多轮修复（无 Trace/Lesson）,8,0.75,1.0,0.25,0.38,542,0.25
+full,完整方法,8,0.875,1.0,0.125,0.25,394,0.125

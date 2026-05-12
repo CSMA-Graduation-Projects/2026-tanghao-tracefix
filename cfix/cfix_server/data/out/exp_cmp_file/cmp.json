@@ -1,0 +1,1940 @@
+{
+  "meta": {
+    "dataset": "file_ultra",
+    "samples": 8,
+    "max_round": 3,
+    "provider": "qwen",
+    "model": "qwen3-coder-next",
+    "llm_ready": true,
+    "llm_strict": true,
+    "sandbox_backend": "docker",
+    "modes": [
+      "direct",
+      "iter_no_tl",
+      "full"
+    ]
+  },
+  "compare": {
+    "metric_order": [
+      "sample_cnt",
+      "init_pass_rate",
+      "final_pass_rate",
+      "repair_success_rate",
+      "avg_round",
+      "avg_time_ms",
+      "delta_pass_rate"
+    ],
+    "rows": [
+      {
+        "mode": "direct",
+        "label": "单轮生成",
+        "sample_cnt": 8,
+        "init_pass_rate": 0.875,
+        "final_pass_rate": 0.875,
+        "repair_success_rate": 0.0,
+        "avg_round": 0.0,
+        "avg_time_ms": 314,
+        "delta_pass_rate": 0.0,
+        "text": {
+          "sample_cnt": "8",
+          "init_pass_rate": "87.50%",
+          "final_pass_rate": "87.50%",
+          "repair_success_rate": "0.00%",
+          "avg_round": "0.00",
+          "avg_time_ms": "314",
+          "delta_pass_rate": "0.00%"
+        }
+      },
+      {
+        "mode": "iter_no_tl",
+        "label": "多轮修复（无 Trace/Lesson）",
+        "sample_cnt": 8,
+        "init_pass_rate": 0.75,
+        "final_pass_rate": 1.0,
+        "repair_success_rate": 0.25,
+        "avg_round": 0.38,
+        "avg_time_ms": 542,
+        "delta_pass_rate": 0.25,
+        "text": {
+          "sample_cnt": "8",
+          "init_pass_rate": "75.00%",
+          "final_pass_rate": "100.00%",
+          "repair_success_rate": "25.00%",
+          "avg_round": "0.38",
+          "avg_time_ms": "542",
+          "delta_pass_rate": "25.00%"
+        }
+      },
+      {
+        "mode": "full",
+        "label": "完整方法",
+        "sample_cnt": 8,
+        "init_pass_rate": 0.875,
+        "final_pass_rate": 1.0,
+        "repair_success_rate": 0.125,
+        "avg_round": 0.25,
+        "avg_time_ms": 394,
+        "delta_pass_rate": 0.125,
+        "text": {
+          "sample_cnt": "8",
+          "init_pass_rate": "87.50%",
+          "final_pass_rate": "100.00%",
+          "repair_success_rate": "12.50%",
+          "avg_round": "0.25",
+          "avg_time_ms": "394",
+          "delta_pass_rate": "12.50%"
+        }
+      }
+    ],
+    "groups": [
+      {
+        "metric_key": "final_pass_rate",
+        "metric_label": "最终通过率",
+        "items": [
+          {
+            "label": "单轮生成",
+            "value": 0.875,
+            "text": "87.50%"
+          },
+          {
+            "label": "多轮修复（无 Trace/Lesson）",
+            "value": 1.0,
+            "text": "100.00%"
+          },
+          {
+            "label": "完整方法",
+            "value": 1.0,
+            "text": "100.00%"
+          }
+        ]
+      },
+      {
+        "metric_key": "repair_success_rate",
+        "metric_label": "修复成功率",
+        "items": [
+          {
+            "label": "单轮生成",
+            "value": 0.0,
+            "text": "0.00%"
+          },
+          {
+            "label": "多轮修复（无 Trace/Lesson）",
+            "value": 0.25,
+            "text": "25.00%"
+          },
+          {
+            "label": "完整方法",
+            "value": 0.125,
+            "text": "12.50%"
+          }
+        ]
+      },
+      {
+        "metric_key": "avg_round",
+        "metric_label": "平均修复轮次",
+        "items": [
+          {
+            "label": "单轮生成",
+            "value": 0.0,
+            "text": "0.00"
+          },
+          {
+            "label": "多轮修复（无 Trace/Lesson）",
+            "value": 0.38,
+            "text": "0.38"
+          },
+          {
+            "label": "完整方法",
+            "value": 0.25,
+            "text": "0.25"
+          }
+        ]
+      },
+      {
+        "metric_key": "avg_time_ms",
+        "metric_label": "平均耗时(ms)",
+        "items": [
+          {
+            "label": "单轮生成",
+            "value": 314,
+            "text": "314"
+          },
+          {
+            "label": "多轮修复（无 Trace/Lesson）",
+            "value": 542,
+            "text": "542"
+          },
+          {
+            "label": "完整方法",
+            "value": 394,
+            "text": "394"
+          }
+        ]
+      },
+      {
+        "metric_key": "delta_pass_rate",
+        "metric_label": "通过率提升",
+        "items": [
+          {
+            "label": "单轮生成",
+            "value": 0.0,
+            "text": "0.00%"
+          },
+          {
+            "label": "多轮修复（无 Trace/Lesson）",
+            "value": 0.25,
+            "text": "25.00%"
+          },
+          {
+            "label": "完整方法",
+            "value": 0.125,
+            "text": "12.50%"
+          }
+        ]
+      }
+    ],
+    "notes": [
+      "单轮生成：仅做初始代码生成并直接测试。",
+      "多轮修复（无 Trace/Lesson）：允许迭代修复，但不使用轨迹与历史经验。",
+      "完整方法：启用 Trace 与 Lesson，并保留 rollback 控制。"
+    ]
+  },
+  "items": {
+    "direct": [
+      {
+        "problem_no": 1,
+        "title": "ConfigCenter 配置模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n模块中必须定义以下公共 API：\n1. parse_kv_lines(lines)：接收字符串列表 lines，解析形如 key=value 的配置行，忽略空行、仅由空白组成的行、以及去除前导空白后以 # 开头的注释行；\n2. 解析时只按第一个 = 分割，key 和 value 两侧都要 strip；若 key 为空或整行没有 =，则忽略；重复 key 以后者覆盖前者；\n3. merge_config(base, override)：返回一个新字典，表示 base 与 override 的浅合并结果，override 同名键覆盖 base，且不得修改传入参数；\n4. class ConfigView：构造函数接收一个字典 data；get_str(key, default='') 返回字符串值；get_int(key, default=0) 在可解析为整数时返回整数，否则返回 default；get_bool(key, default=False) 支持 1/true/yes/on 和 0/false/no/off（大小写不敏感），无法识别时返回 default；keys() 返回按字典序排序后的键列表。",
+        "total_cnt": 5,
+        "init_pass_cnt": 5,
+        "final_pass_cnt": 5,
+        "init_result": "pass",
+        "final_result": "pass",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "lines = [' host = localhost ', 'port=8080', ' bad line ', 'mode = prod', '#comment', 'host = 127.0.0.1', 'path = a=b=c']\ncfg = parse_kv_lines(lines)\nassert cfg == {'host': '127.0.0.1', 'port': '8080', 'mode': 'prod', 'path': 'a=b=c'}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 61
+          },
+          {
+            "assert_text": "base = {'host': 'localhost', 'port': '80'}\noverride = {'port': '8080', 'debug': 'true'}\nmerged = merge_config(base, override)\nassert merged == {'host': 'localhost', 'port': '8080', 'debug': 'true'}\nassert base == {'host': 'localhost', 'port': '80'}\nassert override == {'port': '8080', 'debug': 'true'}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 20
+          },
+          {
+            "assert_text": "view = ConfigView({'port': '8080', 'debug': 'YES', 'workers': '-2', 'bad': 'x'})\nassert view.get_str('port') == '8080'\nassert view.get_int('port') == 8080\nassert view.get_int('workers') == -2\nassert view.get_int('bad', 9) == 9\nassert view.get_bool('debug') is True",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 63
+          },
+          {
+            "assert_text": "view = ConfigView({'a': 'off', 'b': '0', 'c': 'unknown', 'd': 'On'})\nassert view.get_bool('a', True) is False\nassert view.get_bool('b', True) is False\nassert view.get_bool('c', True) is True\nassert view.get_bool('missing', True) is True\nassert view.keys() == ['a', 'b', 'c', 'd']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 23
+          },
+          {
+            "assert_text": "cfg = parse_kv_lines(['', '  #x', 'name = alice', ' age = 18 ', '=bad', 'lang=python'])\nview = ConfigView(merge_config({'debug': 'false'}, cfg))\nassert view.get_str('name') == 'alice'\nassert view.get_int('age') == 18\nassert view.get_bool('debug', True) is False\nassert view.keys() == ['age', 'debug', 'lang', 'name']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 21
+          }
+        ],
+        "time_ms": 188,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 2,
+        "title": "InventoryLedger 库存账本模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n模块中必须定义：\n1. class InventoryLedger(initial=None)：内部维护商品名到库存数量的映射；initial 若提供，则只接收数量为非负整数的初始项；\n2. add(name, qty)：当 qty 为正整数时累加库存并返回最新库存，否则返回 False；\n3. remove(name, qty)：当 qty 为正整数且库存足够时扣减并返回最新库存；若参数非法或库存不足则返回 False；若扣减后为 0，应从快照中移除该商品；\n4. count(name) 返回某商品库存，不存在为 0；total_items() 返回全部库存数量之和；snapshot() 返回当前库存的新字典副本，不得泄露内部可变状态；\n5. apply_ops(ops, initial=None)：新建一个 InventoryLedger，并依次执行形如 ('add', name, qty) 或 ('remove', name, qty) 的操作，未知操作忽略，最后返回 snapshot()。",
+        "total_cnt": 6,
+        "init_pass_cnt": 5,
+        "final_pass_cnt": 5,
+        "init_result": "fail",
+        "final_result": "fail",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "inv = InventoryLedger({'apple': 2, 'banana': 1})\nassert inv.add('apple', 3) == 5\nassert inv.count('apple') == 5\nassert inv.total_items() == 6",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 21
+          },
+          {
+            "assert_text": "inv = InventoryLedger({'apple': 4})\nassert inv.remove('apple', 3) == 1\nassert inv.remove('apple', 2) is False\nassert inv.count('apple') == 1",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 65
+          },
+          {
+            "assert_text": "inv = InventoryLedger({'x': 1})\nassert inv.add('x', 0) is False\nassert inv.add('x', -1) is False\nassert inv.remove('x', 0) is False\nassert inv.remove('x', -5) is False\nassert inv.snapshot() == {'x': 1}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 20
+          },
+          {
+            "assert_text": "snap = apply_ops([('add', 'a', 2), ('add', 'b', 1), ('remove', 'a', 1), ('noop', 'x', 9)], {'a': 1})\nassert snap == {'a': 2, 'b': 1}",
+            "result": "fail",
+            "actual_out": "",
+            "err_type": "NameError",
+            "err_msg": "NameError: name 'apply_ops' is not defined",
+            "time_ms": 64
+          },
+          {
+            "assert_text": "inv = InventoryLedger({'pen': 2})\nassert inv.remove('pen', 2) == 0\nassert inv.count('pen') == 0\nassert inv.snapshot() == {}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 67
+          },
+          {
+            "assert_text": "inv = InventoryLedger({'book': 1})\nsnap = inv.snapshot()\nsnap['book'] = 99\nassert inv.count('book') == 1",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 61
+          }
+        ],
+        "time_ms": 298,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 3,
+        "title": "ScoreReport 成绩报告模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n模块中必须定义：\n1. parse_records(lines)：解析形如 'name,score' 的字符串列表；name 两侧要 strip；score 必须是可解析整数，非法行忽略；返回 [(name, score), ...]；\n2. class ScoreReport(records)：records 为 (name, score) 二元组列表；\n3. average(name) 返回该学生所有成绩的平均值；若没有记录，返回 0；\n4. best_student() 返回平均分最高的学生姓名；若并列，返回字典序更小者；若没有记录，返回空字符串；\n5. passed_names(threshold=60) 返回平均分不低于 threshold 的学生姓名列表，去重后按字典序排序；\n6. summary() 返回字典：name -> {'count': 记录数, 'avg': 平均分, 'max': 最高分}。",
+        "total_cnt": 6,
+        "init_pass_cnt": 6,
+        "final_pass_cnt": 6,
+        "init_result": "pass",
+        "final_result": "pass",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "rows = parse_records([' alice,90 ', 'bob,70', 'bad', 'carol,x', 'alice, 60'])\nassert rows == [('alice', 90), ('bob', 70), ('alice', 60)]",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 20
+          },
+          {
+            "assert_text": "rep = ScoreReport([('alice', 90), ('alice', 60), ('bob', 80)])\nassert rep.average('alice') == 75\nassert rep.average('bob') == 80\nassert rep.average('none') == 0",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 20
+          },
+          {
+            "assert_text": "rep = ScoreReport([('bob', 80), ('alice', 90), ('alice', 70)])\nassert rep.best_student() == 'alice'",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 21
+          },
+          {
+            "assert_text": "rep = ScoreReport([('bob', 80), ('alice', 60), ('alice', 60), ('carol', 59)])\nassert rep.passed_names() == ['alice', 'bob']\nassert rep.passed_names(75) == ['bob']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 20
+          },
+          {
+            "assert_text": "rep = ScoreReport([('alice', 90), ('alice', 60), ('bob', 80)])\nsummary = rep.summary()\nassert summary['alice'] == {'count': 2, 'avg': 75, 'max': 90}\nassert summary['bob'] == {'count': 1, 'avg': 80, 'max': 80}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 21
+          },
+          {
+            "assert_text": "rep = ScoreReport([])\nassert rep.best_student() == ''\nassert rep.passed_names() == []\nassert rep.summary() == {}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 59
+          }
+        ],
+        "time_ms": 161,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 4,
+        "title": "IntervalBook 区间账本模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n所有区间都表示整数闭区间 [left, right]。模块中必须定义：\n1. merge_intervals(intervals)：忽略 left > right 的非法区间；对剩余区间按起点排序后合并重叠或相邻区间（例如 [1,2] 与 [3,5] 也要合并）；\n2. total_covered(intervals)：返回 merge_intervals(intervals) 后共覆盖了多少个整数；\n3. class IntervalBook：内部维护若干区间；add(left, right) 添加一个区间；contains(x) 判断整数 x 是否被任一区间覆盖；gaps(left, right) 返回闭区间 [left,right] 内未被覆盖的区间列表，也按闭区间表示。",
+        "total_cnt": 6,
+        "init_pass_cnt": 6,
+        "final_pass_cnt": 6,
+        "init_result": "pass",
+        "final_result": "pass",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "intervals = [(5, 5), (1, 2), (3, 4), (10, 12), (11, 13), (8, 6)]\nassert merge_intervals(intervals) == [(1, 5), (10, 13)]",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 20
+          },
+          {
+            "assert_text": "assert total_covered([(1, 3), (5, 5), (2, 4)]) == 5\nassert total_covered([(8, 6)]) == 0",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 19
+          },
+          {
+            "assert_text": "book = IntervalBook()\nbook.add(1, 3)\nbook.add(5, 7)\nbook.add(4, 4)\nassert book.contains(2) is True\nassert book.contains(4) is True\nassert book.contains(8) is False",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 20
+          },
+          {
+            "assert_text": "book = IntervalBook()\nbook.add(2, 4)\nbook.add(7, 8)\nassert book.gaps(1, 9) == [(1, 1), (5, 6), (9, 9)]",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 19
+          },
+          {
+            "assert_text": "book = IntervalBook()\nassert book.gaps(3, 2) == []\nassert book.gaps(1, 3) == [(1, 3)]",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 65
+          },
+          {
+            "assert_text": "book = IntervalBook()\nbook.add(1, 2)\nbook.add(3, 5)\nassert book.gaps(1, 5) == []",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 63
+          }
+        ],
+        "time_ms": 206,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 5,
+        "title": "TemplateEngine 模板渲染模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n模块中必须定义：\n1. find_placeholders(template)：从字符串 template 中按出现顺序提取占位符名称，语法为 {{name}}，花括号内两侧空白需要 strip；重复占位符只保留第一次出现；\n2. render_template(template, data)：把 template 中的 {{name}} 用 data[name] 的字符串值替换；若 data 中不存在对应键，则保留原占位符原样不动；\n3. class TemplateBatch(templates)：templates 为字符串列表；render_all(data) 返回逐个渲染后的结果列表；missing_keys(data) 返回所有模板中出现但 data 缺失的键，按字典序排序且去重；longest_template() 返回原始模板中长度最大的那个，若并列返回最早出现的。",
+        "total_cnt": 6,
+        "init_pass_cnt": 6,
+        "final_pass_cnt": 6,
+        "init_result": "pass",
+        "final_result": "pass",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "tpl = 'Hello {{ name }}, today is {{day}}. {{name}}!'\nassert find_placeholders(tpl) == ['name', 'day']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 163
+          },
+          {
+            "assert_text": "tpl = 'Hello {{ name }}, today is {{day}}.'\nassert render_template(tpl, {'name': 'Alice', 'day': 'Monday'}) == 'Hello Alice, today is Monday.'",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 107
+          },
+          {
+            "assert_text": "tpl = 'User={{user}}, Role={{role}}'\nassert render_template(tpl, {'user': 'tom'}) == 'User=tom, Role={{role}}'",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 111
+          },
+          {
+            "assert_text": "batch = TemplateBatch(['Hi {{name}}', 'Role={{role}}', '{{name}}/{{lang}}'])\nassert batch.render_all({'name': 'Bob', 'role': 'dev', 'lang': 'py'}) == ['Hi Bob', 'Role=dev', 'Bob/py']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 162
+          },
+          {
+            "assert_text": "batch = TemplateBatch(['Hi {{name}}', 'Role={{role}}', '{{name}}/{{lang}}'])\nassert batch.missing_keys({'name': 'Bob'}) == ['lang', 'role']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 115
+          },
+          {
+            "assert_text": "batch = TemplateBatch(['aa', 'bbbb', 'cccc'])\nassert batch.longest_template() == 'bbbb'",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 168
+          }
+        ],
+        "time_ms": 826,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 6,
+        "title": "GridAnalyzer 网格分析模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n网格 grid 使用字符串列表表示，例如 ['##.', '.#.']。模块中必须定义：\n1. neighbors4(grid, r, c)：返回坐标 (r,c) 在网格内的四邻接坐标列表，顺序固定为上、下、左、右，只保留合法坐标；\n2. island_sizes(grid, land='#')：按四联通统计所有由 land 组成的连通块大小，返回升序排序后的列表；\n3. class GridAnalyzer(grid)：largest_island(land='#') 返回最大连通块大小，不存在则为 0；perimeter(land='#') 返回所有 land 单元格的总周长，边界或相邻非 land 都计入周长。",
+        "total_cnt": 6,
+        "init_pass_cnt": 6,
+        "final_pass_cnt": 6,
+        "init_result": "pass",
+        "final_result": "pass",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "grid = ['abc', 'def', 'ghi']\nassert neighbors4(grid, 1, 1) == [(0, 1), (2, 1), (1, 0), (1, 2)]\nassert neighbors4(grid, 0, 0) == [(1, 0), (0, 1)]",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 25
+          },
+          {
+            "assert_text": "grid = ['##..', '.#..', '..##', '..##']\nassert island_sizes(grid) == [3, 4]",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 20
+          },
+          {
+            "assert_text": "ga = GridAnalyzer(['##..', '.#..', '..##', '..##'])\nassert ga.largest_island() == 4",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 64
+          },
+          {
+            "assert_text": "ga = GridAnalyzer(['##', '##'])\nassert ga.perimeter() == 8",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 20
+          },
+          {
+            "assert_text": "ga = GridAnalyzer(['#.#', '.#.', '#.#'])\nassert ga.largest_island() == 1\nassert ga.perimeter() == 20",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 25
+          },
+          {
+            "assert_text": "ga = GridAnalyzer([])\nassert ga.largest_island() == 0\nassert ga.perimeter() == 0\nassert island_sizes([]) == []",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 28
+          }
+        ],
+        "time_ms": 182,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 7,
+        "title": "TaskGraph 任务依赖图模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n输入 tasks 为 dict[str, list[str]]，表示任务到其前置依赖的映射。模块中必须定义：\n1. topo_sort(tasks)：若图合法且无环，则返回一个拓扑序；当有多个可选任务时，必须优先返回字典序更小者；若存在环，或依赖中出现 tasks 中不存在的任务名，则返回空列表；\n2. can_finish(tasks)：能完成返回 True，否则 False；其判断标准与 topo_sort 一致；\n3. class TaskGraph(tasks)：ready(done) 返回当前未完成且依赖都已在 done 集合中的任务列表，按字典序排序；blocked_count(done) 返回当前未完成且尚不可执行的任务数。",
+        "total_cnt": 6,
+        "init_pass_cnt": 6,
+        "final_pass_cnt": 6,
+        "init_result": "pass",
+        "final_result": "pass",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "tasks = {'build': ['lint', 'test'], 'lint': [], 'test': ['lint']} \nassert topo_sort(tasks) == ['lint', 'test', 'build']\nassert can_finish(tasks) is True",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 81
+          },
+          {
+            "assert_text": "tasks = {'a': ['b'], 'b': ['a']}\nassert topo_sort(tasks) == []\nassert can_finish(tasks) is False",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 75
+          },
+          {
+            "assert_text": "tasks = {'a': ['missing'], 'b': []}\nassert topo_sort(tasks) == []\nassert can_finish(tasks) is False",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 87
+          },
+          {
+            "assert_text": "tg = TaskGraph({'build': ['lint', 'test'], 'lint': [], 'test': ['lint']})\nassert tg.ready(set()) == ['lint']\nassert tg.ready({'lint'}) == ['test']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 81
+          },
+          {
+            "assert_text": "tg = TaskGraph({'a': [], 'b': ['a'], 'c': ['a'], 'd': ['b', 'c']})\nassert tg.ready({'a'}) == ['b', 'c']\nassert tg.blocked_count({'a'}) == 1\nassert tg.blocked_count({'a', 'b', 'c'}) == 0",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 82
+          },
+          {
+            "assert_text": "tasks = {'b': [], 'a': []}\nassert topo_sort(tasks) == ['a', 'b']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 80
+          }
+        ],
+        "time_ms": 486,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 8,
+        "title": "RouterTable 路由匹配模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n模块中必须定义：\n1. split_path(path)：按 / 分割路径，忽略首尾和重复 / 产生的空段，返回段列表；例如 '/a//b/' -> ['a','b']；\n2. match_route(pattern, path)：pattern 与 path 都按 split_path 处理；pattern 中以 : 开头的段表示参数，如 /user/:id；只有段数完全一致时才算匹配；匹配成功返回参数字典，纯字面量段必须完全相等，不匹配则返回 None；\n3. class RouterTable：add(pattern, name) 追加一条路由；resolve(path) 按添加顺序返回第一条匹配成功的 (name, params)；若没有匹配项，返回 (None, {})。",
+        "total_cnt": 6,
+        "init_pass_cnt": 6,
+        "final_pass_cnt": 6,
+        "init_result": "pass",
+        "final_result": "pass",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "assert split_path('/a//b/') == ['a', 'b']\nassert split_path('///') == []",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 24
+          },
+          {
+            "assert_text": "assert match_route('/user/:id', '/user/42') == {'id': '42'}\nassert match_route('/user/:id', '/user') is None",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 19
+          },
+          {
+            "assert_text": "assert match_route('/shop/:shop_id/item/:item_id', '/shop/7/item/9') == {'shop_id': '7', 'item_id': '9'}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 21
+          },
+          {
+            "assert_text": "rt = RouterTable()\nrt.add('/user/list', 'user_list')\nrt.add('/user/:id', 'user_detail')\nassert rt.resolve('/user/list') == ('user_list', {})\nassert rt.resolve('/user/42') == ('user_detail', {'id': '42'})",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 23
+          },
+          {
+            "assert_text": "rt = RouterTable()\nrt.add('/post/:id', 'post_detail')\nrt.add('/post/:id/comment/:cid', 'comment_detail')\nassert rt.resolve('/post/3/comment/9') == ('comment_detail', {'id': '3', 'cid': '9'})",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 66
+          },
+          {
+            "assert_text": "rt = RouterTable()\nrt.add('/a/:x', 'ax')\nassert rt.resolve('/b/1') == (None, {})",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 19
+          }
+        ],
+        "time_ms": 172,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      }
+    ],
+    "iter_no_tl": [
+      {
+        "problem_no": 1,
+        "title": "ConfigCenter 配置模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n模块中必须定义以下公共 API：\n1. parse_kv_lines(lines)：接收字符串列表 lines，解析形如 key=value 的配置行，忽略空行、仅由空白组成的行、以及去除前导空白后以 # 开头的注释行；\n2. 解析时只按第一个 = 分割，key 和 value 两侧都要 strip；若 key 为空或整行没有 =，则忽略；重复 key 以后者覆盖前者；\n3. merge_config(base, override)：返回一个新字典，表示 base 与 override 的浅合并结果，override 同名键覆盖 base，且不得修改传入参数；\n4. class ConfigView：构造函数接收一个字典 data；get_str(key, default='') 返回字符串值；get_int(key, default=0) 在可解析为整数时返回整数，否则返回 default；get_bool(key, default=False) 支持 1/true/yes/on 和 0/false/no/off（大小写不敏感），无法识别时返回 default；keys() 返回按字典序排序后的键列表。",
+        "total_cnt": 5,
+        "init_pass_cnt": 5,
+        "final_pass_cnt": 5,
+        "init_result": "pass",
+        "final_result": "pass",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "lines = [' host = localhost ', 'port=8080', ' bad line ', 'mode = prod', '#comment', 'host = 127.0.0.1', 'path = a=b=c']\ncfg = parse_kv_lines(lines)\nassert cfg == {'host': '127.0.0.1', 'port': '8080', 'mode': 'prod', 'path': 'a=b=c'}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 72
+          },
+          {
+            "assert_text": "base = {'host': 'localhost', 'port': '80'}\noverride = {'port': '8080', 'debug': 'true'}\nmerged = merge_config(base, override)\nassert merged == {'host': 'localhost', 'port': '8080', 'debug': 'true'}\nassert base == {'host': 'localhost', 'port': '80'}\nassert override == {'port': '8080', 'debug': 'true'}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 22
+          },
+          {
+            "assert_text": "view = ConfigView({'port': '8080', 'debug': 'YES', 'workers': '-2', 'bad': 'x'})\nassert view.get_str('port') == '8080'\nassert view.get_int('port') == 8080\nassert view.get_int('workers') == -2\nassert view.get_int('bad', 9) == 9\nassert view.get_bool('debug') is True",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 74
+          },
+          {
+            "assert_text": "view = ConfigView({'a': 'off', 'b': '0', 'c': 'unknown', 'd': 'On'})\nassert view.get_bool('a', True) is False\nassert view.get_bool('b', True) is False\nassert view.get_bool('c', True) is True\nassert view.get_bool('missing', True) is True\nassert view.keys() == ['a', 'b', 'c', 'd']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 26
+          },
+          {
+            "assert_text": "cfg = parse_kv_lines(['', '  #x', 'name = alice', ' age = 18 ', '=bad', 'lang=python'])\nview = ConfigView(merge_config({'debug': 'false'}, cfg))\nassert view.get_str('name') == 'alice'\nassert view.get_int('age') == 18\nassert view.get_bool('debug', True) is False\nassert view.keys() == ['age', 'debug', 'lang', 'name']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 66
+          }
+        ],
+        "time_ms": 260,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 2,
+        "title": "InventoryLedger 库存账本模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n模块中必须定义：\n1. class InventoryLedger(initial=None)：内部维护商品名到库存数量的映射；initial 若提供，则只接收数量为非负整数的初始项；\n2. add(name, qty)：当 qty 为正整数时累加库存并返回最新库存，否则返回 False；\n3. remove(name, qty)：当 qty 为正整数且库存足够时扣减并返回最新库存；若参数非法或库存不足则返回 False；若扣减后为 0，应从快照中移除该商品；\n4. count(name) 返回某商品库存，不存在为 0；total_items() 返回全部库存数量之和；snapshot() 返回当前库存的新字典副本，不得泄露内部可变状态；\n5. apply_ops(ops, initial=None)：新建一个 InventoryLedger，并依次执行形如 ('add', name, qty) 或 ('remove', name, qty) 的操作，未知操作忽略，最后返回 snapshot()。",
+        "total_cnt": 6,
+        "init_pass_cnt": 4,
+        "final_pass_cnt": 6,
+        "init_result": "fail",
+        "final_result": "pass",
+        "round_used": 2,
+        "repaired": true,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [
+          {
+            "round_no": 1,
+            "before_pass_cnt": 4,
+            "after_pass_cnt": 5,
+            "before_score": 0.6666666666666666,
+            "after_score": 0.8333333333333334,
+            "trace_event_cnt": 0,
+            "trace_sum": "",
+            "trace_preview": [],
+            "root_cause": "错误发生在调用 apply_ops 时，代码直接调用了 apply_ops(...) 而未通过类名 InventoryLedger.apply_ops(...) 调用，因为 apply_ops 是类的静态方法，必须通过类名调用；但更根本的问题是：题目要求模块中定义 apply_ops 作为 InventoryLedger 的静态方法，而当前测试代码（或调用方）可能期望它作为模块级函数存在，但当前代码未导出该函数；然而错误信息显示的是 NameError，说明调用时未加类名前缀，但题目并未要求将其改为模块级函数，因此问题在于测试代码调用方式错误，但作为模块实现，应确保静态方法可被正确调用——然而更关键的是：题目要求 'apply_ops(ops, initial=None)' 作为模块级函数？不，题目明确要求定义在类中；但错误是 NameError，说明调用方未加类名，而模块中未提供独立函数；因此根因是：题目要求模块中定义 apply_ops 作为类的静态方法，但未提供模块级包装函数，而测试代码（如样例调用）直接调用了 apply_ops(...)，导致 NameError；但题目描述中 'apply_ops(ops, initial=None)' 的调用形式暗示它应作为模块级函数存在；因此实现应补充一个模块级的 apply_ops 函数，或确保类方法可被直接调用（但 Python 中静态方法不能直接作为模块函数调用）；综上，根因是：模块未提供与类同名的模块级函数 apply_ops，而测试代码尝试直接调用 apply_ops(...)；但题目要求是 '定义 class InventoryLedger(...)' 并在其内定义 apply_ops 静态方法，并未要求模块级函数；然而错误信息表明调用失败，说明测试代码期望模块级函数；因此需在类外添加模块级 apply_ops 函数，或调整类方法为模块级函数；但题目明确要求 '模块中必须定义：... apply_ops(ops, initial=None)'，结合上下文，应理解为该方法属于类，但调用时需通过类名；然而错误是 NameError，说明调用方未加类名，因此问题在于测试代码错误，但作为模块实现，应兼容常见调用方式；但更合理的解释是：题目中的 'apply_ops' 是类的静态方法，但测试代码（如样例）直接调用了 apply_ops(...)，而未加类名，导致 NameError；因此修复方案是：在类外添加一个模块级的 apply_ops 函数，它调用 InventoryLedger.apply_ops(ops, initial)，以兼容直接调用；但题目未明确要求模块级函数，然而错误信息暴露了该需求；综上，根因是：模块未提供模块级的 apply_ops 函数，而测试代码（如样例）直接调用了 apply_ops(...)；",
+            "fix_plan": "1. 在类定义之后，添加一个模块级函数 apply_ops(ops, initial=None)，它内部调用 InventoryLedger.apply_ops(ops, initial)；\n2. 确保该函数与类同名方法功能一致，作为便捷入口；\n3. 保持类静态方法不变，以满足题目 '定义在类中' 的要求；\n4. 检查其他方法是否符合题目要求（如 remove 中库存为 0 时是否移除，snapshot 是否返回副本等），当前代码已满足；",
+            "inst_sugg": "若还需继续定位，下一轮建议记录：1. 测试代码中对 apply_ops 的调用方式（是否加类名）；2. 模块导入后 apply_ops 是否可被直接调用；3. 模块级函数与类静态方法的可见性（如 __all__ 是否导出）",
+            "ana_source": "llm",
+            "ana_error": "",
+            "fix_source": "llm",
+            "fix_error": "",
+            "action": "accept",
+            "first_fail_assert": "snap = apply_ops([('add', 'a', 2), ('add', 'b', 1), ('remove', 'a', 1), ('noop', 'x', 9)], {'a': 1})\nassert snap == {'a': 2, 'b': 1}"
+          },
+          {
+            "round_no": 2,
+            "before_pass_cnt": 5,
+            "after_pass_cnt": 6,
+            "before_score": 0.8333333333333334,
+            "after_score": 1.0,
+            "trace_event_cnt": 0,
+            "trace_sum": "",
+            "trace_preview": [],
+            "root_cause": "在 remove 方法中，当扣减后库存为 0 时已将商品从 _inventory 中删除（del self._inventory[name]），但随后仍尝试访问 self._inventory[name] 返回最新库存，导致 KeyError。正确逻辑应是在删除前记录扣减后的值（即 0），再删除条目；若删除后需返回 0，则应显式返回 0 而非访问已删除的键。",
+            "fix_plan": "1. 修改 remove 方法：在执行 del self._inventory[name] 前，先保存扣减后的值（即 0）；\n2. 删除条目后，显式返回 0，而不是尝试访问已删除的键；\n3. 确保所有返回路径均有效：非法参数返回 False，库存不足返回 False，成功扣减后若条目被删除则返回 0，否则返回剩余库存。",
+            "inst_sugg": "若需继续验证，建议在 remove 方法中记录 name、qty、扣减前库存、扣减后库存值、是否触发删除操作等变量，以确认逻辑分支覆盖所有场景。",
+            "ana_source": "llm",
+            "ana_error": "",
+            "fix_source": "llm",
+            "fix_error": "",
+            "action": "accept",
+            "first_fail_assert": "inv = InventoryLedger({'pen': 2})\nassert inv.remove('pen', 2) == 0\nassert inv.count('pen') == 0\nassert inv.snapshot() == {}"
+          }
+        ],
+        "final_cases": [
+          {
+            "assert_text": "inv = InventoryLedger({'apple': 2, 'banana': 1})\nassert inv.add('apple', 3) == 5\nassert inv.count('apple') == 5\nassert inv.total_items() == 6",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 80
+          },
+          {
+            "assert_text": "inv = InventoryLedger({'apple': 4})\nassert inv.remove('apple', 3) == 1\nassert inv.remove('apple', 2) is False\nassert inv.count('apple') == 1",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 69
+          },
+          {
+            "assert_text": "inv = InventoryLedger({'x': 1})\nassert inv.add('x', 0) is False\nassert inv.add('x', -1) is False\nassert inv.remove('x', 0) is False\nassert inv.remove('x', -5) is False\nassert inv.snapshot() == {'x': 1}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 26
+          },
+          {
+            "assert_text": "snap = apply_ops([('add', 'a', 2), ('add', 'b', 1), ('remove', 'a', 1), ('noop', 'x', 9)], {'a': 1})\nassert snap == {'a': 2, 'b': 1}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 26
+          },
+          {
+            "assert_text": "inv = InventoryLedger({'pen': 2})\nassert inv.remove('pen', 2) == 0\nassert inv.count('pen') == 0\nassert inv.snapshot() == {}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 65
+          },
+          {
+            "assert_text": "inv = InventoryLedger({'book': 1})\nsnap = inv.snapshot()\nsnap['book'] = 99\nassert inv.count('book') == 1",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 24
+          }
+        ],
+        "time_ms": 952,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 3,
+        "title": "ScoreReport 成绩报告模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n模块中必须定义：\n1. parse_records(lines)：解析形如 'name,score' 的字符串列表；name 两侧要 strip；score 必须是可解析整数，非法行忽略；返回 [(name, score), ...]；\n2. class ScoreReport(records)：records 为 (name, score) 二元组列表；\n3. average(name) 返回该学生所有成绩的平均值；若没有记录，返回 0；\n4. best_student() 返回平均分最高的学生姓名；若并列，返回字典序更小者；若没有记录，返回空字符串；\n5. passed_names(threshold=60) 返回平均分不低于 threshold 的学生姓名列表，去重后按字典序排序；\n6. summary() 返回字典：name -> {'count': 记录数, 'avg': 平均分, 'max': 最高分}。",
+        "total_cnt": 6,
+        "init_pass_cnt": 6,
+        "final_pass_cnt": 6,
+        "init_result": "pass",
+        "final_result": "pass",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "rows = parse_records([' alice,90 ', 'bob,70', 'bad', 'carol,x', 'alice, 60'])\nassert rows == [('alice', 90), ('bob', 70), ('alice', 60)]",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 67
+          },
+          {
+            "assert_text": "rep = ScoreReport([('alice', 90), ('alice', 60), ('bob', 80)])\nassert rep.average('alice') == 75\nassert rep.average('bob') == 80\nassert rep.average('none') == 0",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 62
+          },
+          {
+            "assert_text": "rep = ScoreReport([('bob', 80), ('alice', 90), ('alice', 70)])\nassert rep.best_student() == 'alice'",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 21
+          },
+          {
+            "assert_text": "rep = ScoreReport([('bob', 80), ('alice', 60), ('alice', 60), ('carol', 59)])\nassert rep.passed_names() == ['alice', 'bob']\nassert rep.passed_names(75) == ['bob']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 61
+          },
+          {
+            "assert_text": "rep = ScoreReport([('alice', 90), ('alice', 60), ('bob', 80)])\nsummary = rep.summary()\nassert summary['alice'] == {'count': 2, 'avg': 75, 'max': 90}\nassert summary['bob'] == {'count': 1, 'avg': 80, 'max': 80}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 23
+          },
+          {
+            "assert_text": "rep = ScoreReport([])\nassert rep.best_student() == ''\nassert rep.passed_names() == []\nassert rep.summary() == {}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 63
+          }
+        ],
+        "time_ms": 297,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 4,
+        "title": "IntervalBook 区间账本模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n所有区间都表示整数闭区间 [left, right]。模块中必须定义：\n1. merge_intervals(intervals)：忽略 left > right 的非法区间；对剩余区间按起点排序后合并重叠或相邻区间（例如 [1,2] 与 [3,5] 也要合并）；\n2. total_covered(intervals)：返回 merge_intervals(intervals) 后共覆盖了多少个整数；\n3. class IntervalBook：内部维护若干区间；add(left, right) 添加一个区间；contains(x) 判断整数 x 是否被任一区间覆盖；gaps(left, right) 返回闭区间 [left,right] 内未被覆盖的区间列表，也按闭区间表示。",
+        "total_cnt": 6,
+        "init_pass_cnt": 5,
+        "final_pass_cnt": 6,
+        "init_result": "fail",
+        "final_result": "pass",
+        "round_used": 1,
+        "repaired": true,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [
+          {
+            "round_no": 1,
+            "before_pass_cnt": 5,
+            "after_pass_cnt": 6,
+            "before_score": 0.8333333333333334,
+            "after_score": 1.0,
+            "trace_event_cnt": 0,
+            "trace_sum": "",
+            "trace_preview": [],
+            "root_cause": "gaps(3, 2) 中 left=3 > right=2，这是一个无效区间，应直接返回空列表 []，但当前代码未处理该边界情况，导致进入后续逻辑计算并返回非空结果。",
+            "fix_plan": "1. 在 gaps 方法开头添加对 [left, right] 本身是否合法的检查（即 left > right 时直接返回 []）；2. 确保所有区间操作前都验证区间有效性；3. 同时需检查 merge_intervals 是否已正确过滤非法区间（当前已满足），但 gaps 的输入参数本身可能非法，需单独处理。",
+            "inst_sugg": "建议在 gaps 方法入口处添加 `if left > right: return []`；下一轮可记录 gaps 调用时的 left/right 值及返回结果，验证边界条件覆盖完整性。",
+            "ana_source": "llm",
+            "ana_error": "",
+            "fix_source": "llm",
+            "fix_error": "",
+            "action": "accept",
+            "first_fail_assert": "book = IntervalBook()\nassert book.gaps(3, 2) == []\nassert book.gaps(1, 3) == [(1, 3)]"
+          }
+        ],
+        "final_cases": [
+          {
+            "assert_text": "intervals = [(5, 5), (1, 2), (3, 4), (10, 12), (11, 13), (8, 6)]\nassert merge_intervals(intervals) == [(1, 5), (10, 13)]",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 80
+          },
+          {
+            "assert_text": "assert total_covered([(1, 3), (5, 5), (2, 4)]) == 5\nassert total_covered([(8, 6)]) == 0",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 81
+          },
+          {
+            "assert_text": "book = IntervalBook()\nbook.add(1, 3)\nbook.add(5, 7)\nbook.add(4, 4)\nassert book.contains(2) is True\nassert book.contains(4) is True\nassert book.contains(8) is False",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 74
+          },
+          {
+            "assert_text": "book = IntervalBook()\nbook.add(2, 4)\nbook.add(7, 8)\nassert book.gaps(1, 9) == [(1, 1), (5, 6), (9, 9)]",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 110
+          },
+          {
+            "assert_text": "book = IntervalBook()\nassert book.gaps(3, 2) == []\nassert book.gaps(1, 3) == [(1, 3)]",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 70
+          },
+          {
+            "assert_text": "book = IntervalBook()\nbook.add(1, 2)\nbook.add(3, 5)\nassert book.gaps(1, 5) == []",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 70
+          }
+        ],
+        "time_ms": 735,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 5,
+        "title": "TemplateEngine 模板渲染模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n模块中必须定义：\n1. find_placeholders(template)：从字符串 template 中按出现顺序提取占位符名称，语法为 {{name}}，花括号内两侧空白需要 strip；重复占位符只保留第一次出现；\n2. render_template(template, data)：把 template 中的 {{name}} 用 data[name] 的字符串值替换；若 data 中不存在对应键，则保留原占位符原样不动；\n3. class TemplateBatch(templates)：templates 为字符串列表；render_all(data) 返回逐个渲染后的结果列表；missing_keys(data) 返回所有模板中出现但 data 缺失的键，按字典序排序且去重；longest_template() 返回原始模板中长度最大的那个，若并列返回最早出现的。",
+        "total_cnt": 6,
+        "init_pass_cnt": 6,
+        "final_pass_cnt": 6,
+        "init_result": "pass",
+        "final_result": "pass",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "tpl = 'Hello {{ name }}, today is {{day}}. {{name}}!'\nassert find_placeholders(tpl) == ['name', 'day']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 167
+          },
+          {
+            "assert_text": "tpl = 'Hello {{ name }}, today is {{day}}.'\nassert render_template(tpl, {'name': 'Alice', 'day': 'Monday'}) == 'Hello Alice, today is Monday.'",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 115
+          },
+          {
+            "assert_text": "tpl = 'User={{user}}, Role={{role}}'\nassert render_template(tpl, {'user': 'tom'}) == 'User=tom, Role={{role}}'",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 118
+          },
+          {
+            "assert_text": "batch = TemplateBatch(['Hi {{name}}', 'Role={{role}}', '{{name}}/{{lang}}'])\nassert batch.render_all({'name': 'Bob', 'role': 'dev', 'lang': 'py'}) == ['Hi Bob', 'Role=dev', 'Bob/py']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 162
+          },
+          {
+            "assert_text": "batch = TemplateBatch(['Hi {{name}}', 'Role={{role}}', '{{name}}/{{lang}}'])\nassert batch.missing_keys({'name': 'Bob'}) == ['lang', 'role']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 168
+          },
+          {
+            "assert_text": "batch = TemplateBatch(['aa', 'bbbb', 'cccc'])\nassert batch.longest_template() == 'bbbb'",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 109
+          }
+        ],
+        "time_ms": 839,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 6,
+        "title": "GridAnalyzer 网格分析模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n网格 grid 使用字符串列表表示，例如 ['##.', '.#.']。模块中必须定义：\n1. neighbors4(grid, r, c)：返回坐标 (r,c) 在网格内的四邻接坐标列表，顺序固定为上、下、左、右，只保留合法坐标；\n2. island_sizes(grid, land='#')：按四联通统计所有由 land 组成的连通块大小，返回升序排序后的列表；\n3. class GridAnalyzer(grid)：largest_island(land='#') 返回最大连通块大小，不存在则为 0；perimeter(land='#') 返回所有 land 单元格的总周长，边界或相邻非 land 都计入周长。",
+        "total_cnt": 6,
+        "init_pass_cnt": 6,
+        "final_pass_cnt": 6,
+        "init_result": "pass",
+        "final_result": "pass",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "grid = ['abc', 'def', 'ghi']\nassert neighbors4(grid, 1, 1) == [(0, 1), (2, 1), (1, 0), (1, 2)]\nassert neighbors4(grid, 0, 0) == [(1, 0), (0, 1)]",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 87
+          },
+          {
+            "assert_text": "grid = ['##..', '.#..', '..##', '..##']\nassert island_sizes(grid) == [3, 4]",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 76
+          },
+          {
+            "assert_text": "ga = GridAnalyzer(['##..', '.#..', '..##', '..##'])\nassert ga.largest_island() == 4",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 78
+          },
+          {
+            "assert_text": "ga = GridAnalyzer(['##', '##'])\nassert ga.perimeter() == 8",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 42
+          },
+          {
+            "assert_text": "ga = GridAnalyzer(['#.#', '.#.', '#.#'])\nassert ga.largest_island() == 1\nassert ga.perimeter() == 20",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 80
+          },
+          {
+            "assert_text": "ga = GridAnalyzer([])\nassert ga.largest_island() == 0\nassert ga.perimeter() == 0\nassert island_sizes([]) == []",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 80
+          }
+        ],
+        "time_ms": 443,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 7,
+        "title": "TaskGraph 任务依赖图模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n输入 tasks 为 dict[str, list[str]]，表示任务到其前置依赖的映射。模块中必须定义：\n1. topo_sort(tasks)：若图合法且无环，则返回一个拓扑序；当有多个可选任务时，必须优先返回字典序更小者；若存在环，或依赖中出现 tasks 中不存在的任务名，则返回空列表；\n2. can_finish(tasks)：能完成返回 True，否则 False；其判断标准与 topo_sort 一致；\n3. class TaskGraph(tasks)：ready(done) 返回当前未完成且依赖都已在 done 集合中的任务列表，按字典序排序；blocked_count(done) 返回当前未完成且尚不可执行的任务数。",
+        "total_cnt": 6,
+        "init_pass_cnt": 6,
+        "final_pass_cnt": 6,
+        "init_result": "pass",
+        "final_result": "pass",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "tasks = {'build': ['lint', 'test'], 'lint': [], 'test': ['lint']} \nassert topo_sort(tasks) == ['lint', 'test', 'build']\nassert can_finish(tasks) is True",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 87
+          },
+          {
+            "assert_text": "tasks = {'a': ['b'], 'b': ['a']}\nassert topo_sort(tasks) == []\nassert can_finish(tasks) is False",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 82
+          },
+          {
+            "assert_text": "tasks = {'a': ['missing'], 'b': []}\nassert topo_sort(tasks) == []\nassert can_finish(tasks) is False",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 80
+          },
+          {
+            "assert_text": "tg = TaskGraph({'build': ['lint', 'test'], 'lint': [], 'test': ['lint']})\nassert tg.ready(set()) == ['lint']\nassert tg.ready({'lint'}) == ['test']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 77
+          },
+          {
+            "assert_text": "tg = TaskGraph({'a': [], 'b': ['a'], 'c': ['a'], 'd': ['b', 'c']})\nassert tg.ready({'a'}) == ['b', 'c']\nassert tg.blocked_count({'a'}) == 1\nassert tg.blocked_count({'a', 'b', 'c'}) == 0",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 87
+          },
+          {
+            "assert_text": "tasks = {'b': [], 'a': []}\nassert topo_sort(tasks) == ['a', 'b']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 43
+          }
+        ],
+        "time_ms": 456,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 8,
+        "title": "RouterTable 路由匹配模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n模块中必须定义：\n1. split_path(path)：按 / 分割路径，忽略首尾和重复 / 产生的空段，返回段列表；例如 '/a//b/' -> ['a','b']；\n2. match_route(pattern, path)：pattern 与 path 都按 split_path 处理；pattern 中以 : 开头的段表示参数，如 /user/:id；只有段数完全一致时才算匹配；匹配成功返回参数字典，纯字面量段必须完全相等，不匹配则返回 None；\n3. class RouterTable：add(pattern, name) 追加一条路由；resolve(path) 按添加顺序返回第一条匹配成功的 (name, params)；若没有匹配项，返回 (None, {})。",
+        "total_cnt": 6,
+        "init_pass_cnt": 6,
+        "final_pass_cnt": 6,
+        "init_result": "pass",
+        "final_result": "pass",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "assert split_path('/a//b/') == ['a', 'b']\nassert split_path('///') == []",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 63
+          },
+          {
+            "assert_text": "assert match_route('/user/:id', '/user/42') == {'id': '42'}\nassert match_route('/user/:id', '/user') is None",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 23
+          },
+          {
+            "assert_text": "assert match_route('/shop/:shop_id/item/:item_id', '/shop/7/item/9') == {'shop_id': '7', 'item_id': '9'}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 73
+          },
+          {
+            "assert_text": "rt = RouterTable()\nrt.add('/user/list', 'user_list')\nrt.add('/user/:id', 'user_detail')\nassert rt.resolve('/user/list') == ('user_list', {})\nassert rt.resolve('/user/42') == ('user_detail', {'id': '42'})",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 66
+          },
+          {
+            "assert_text": "rt = RouterTable()\nrt.add('/post/:id', 'post_detail')\nrt.add('/post/:id/comment/:cid', 'comment_detail')\nassert rt.resolve('/post/3/comment/9') == ('comment_detail', {'id': '3', 'cid': '9'})",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 69
+          },
+          {
+            "assert_text": "rt = RouterTable()\nrt.add('/a/:x', 'ax')\nassert rt.resolve('/b/1') == (None, {})",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 63
+          }
+        ],
+        "time_ms": 357,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      }
+    ],
+    "full": [
+      {
+        "problem_no": 1,
+        "title": "ConfigCenter 配置模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n模块中必须定义以下公共 API：\n1. parse_kv_lines(lines)：接收字符串列表 lines，解析形如 key=value 的配置行，忽略空行、仅由空白组成的行、以及去除前导空白后以 # 开头的注释行；\n2. 解析时只按第一个 = 分割，key 和 value 两侧都要 strip；若 key 为空或整行没有 =，则忽略；重复 key 以后者覆盖前者；\n3. merge_config(base, override)：返回一个新字典，表示 base 与 override 的浅合并结果，override 同名键覆盖 base，且不得修改传入参数；\n4. class ConfigView：构造函数接收一个字典 data；get_str(key, default='') 返回字符串值；get_int(key, default=0) 在可解析为整数时返回整数，否则返回 default；get_bool(key, default=False) 支持 1/true/yes/on 和 0/false/no/off（大小写不敏感），无法识别时返回 default；keys() 返回按字典序排序后的键列表。",
+        "total_cnt": 5,
+        "init_pass_cnt": 5,
+        "final_pass_cnt": 5,
+        "init_result": "pass",
+        "final_result": "pass",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "lines = [' host = localhost ', 'port=8080', ' bad line ', 'mode = prod', '#comment', 'host = 127.0.0.1', 'path = a=b=c']\ncfg = parse_kv_lines(lines)\nassert cfg == {'host': '127.0.0.1', 'port': '8080', 'mode': 'prod', 'path': 'a=b=c'}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 64
+          },
+          {
+            "assert_text": "base = {'host': 'localhost', 'port': '80'}\noverride = {'port': '8080', 'debug': 'true'}\nmerged = merge_config(base, override)\nassert merged == {'host': 'localhost', 'port': '8080', 'debug': 'true'}\nassert base == {'host': 'localhost', 'port': '80'}\nassert override == {'port': '8080', 'debug': 'true'}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 23
+          },
+          {
+            "assert_text": "view = ConfigView({'port': '8080', 'debug': 'YES', 'workers': '-2', 'bad': 'x'})\nassert view.get_str('port') == '8080'\nassert view.get_int('port') == 8080\nassert view.get_int('workers') == -2\nassert view.get_int('bad', 9) == 9\nassert view.get_bool('debug') is True",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 20
+          },
+          {
+            "assert_text": "view = ConfigView({'a': 'off', 'b': '0', 'c': 'unknown', 'd': 'On'})\nassert view.get_bool('a', True) is False\nassert view.get_bool('b', True) is False\nassert view.get_bool('c', True) is True\nassert view.get_bool('missing', True) is True\nassert view.keys() == ['a', 'b', 'c', 'd']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 21
+          },
+          {
+            "assert_text": "cfg = parse_kv_lines(['', '  #x', 'name = alice', ' age = 18 ', '=bad', 'lang=python'])\nview = ConfigView(merge_config({'debug': 'false'}, cfg))\nassert view.get_str('name') == 'alice'\nassert view.get_int('age') == 18\nassert view.get_bool('debug', True) is False\nassert view.keys() == ['age', 'debug', 'lang', 'name']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 23
+          }
+        ],
+        "time_ms": 151,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 2,
+        "title": "InventoryLedger 库存账本模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n模块中必须定义：\n1. class InventoryLedger(initial=None)：内部维护商品名到库存数量的映射；initial 若提供，则只接收数量为非负整数的初始项；\n2. add(name, qty)：当 qty 为正整数时累加库存并返回最新库存，否则返回 False；\n3. remove(name, qty)：当 qty 为正整数且库存足够时扣减并返回最新库存；若参数非法或库存不足则返回 False；若扣减后为 0，应从快照中移除该商品；\n4. count(name) 返回某商品库存，不存在为 0；total_items() 返回全部库存数量之和；snapshot() 返回当前库存的新字典副本，不得泄露内部可变状态；\n5. apply_ops(ops, initial=None)：新建一个 InventoryLedger，并依次执行形如 ('add', name, qty) 或 ('remove', name, qty) 的操作，未知操作忽略，最后返回 snapshot()。",
+        "total_cnt": 6,
+        "init_pass_cnt": 4,
+        "final_pass_cnt": 6,
+        "init_result": "fail",
+        "final_result": "pass",
+        "round_used": 2,
+        "repaired": true,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [
+          {
+            "round_no": 1,
+            "before_pass_cnt": 4,
+            "after_pass_cnt": 5,
+            "before_score": 0.6666666666666666,
+            "after_score": 0.8333333333333334,
+            "trace_event_cnt": 0,
+            "trace_sum": "异常收敛点: NameError: NameError: name 'apply_ops' is not defined @L108",
+            "trace_preview": [],
+            "root_cause": "错误发生在调用 apply_ops 时，代码直接调用了 apply_ops(...) 而未通过类名 InventoryLedger.apply_ops(...) 调用，因为 apply_ops 是类的静态方法，必须通过类名访问；但更根本的问题是：题目要求模块中定义 apply_ops 作为独立函数（或类方法），而当前代码中 apply_ops 是静态方法，外部调用时未加类名前缀导致 NameError。",
+            "fix_plan": "1. 将 apply_ops 从静态方法改为模块级独立函数，使其可被直接调用；2. 或保留为静态方法，但调用时使用 InventoryLedger.apply_ops(...)；根据题目描述‘模块中必须定义...apply_ops(ops, initial=None)’，应作为模块级函数实现；3. 同时需确保类内部不重复定义同名方法，避免混淆；4. 修改后需保证逻辑不变：新建 ledger 实例、执行操作、返回 snapshot；5. 注意保留初始库存处理逻辑（initial 参数传入构造函数）",
+            "inst_sugg": "若需继续验证，建议记录：1) apply_ops 调用时的参数类型和内容；2) ledger 实例化过程中的 _inventory 状态；3) 各操作执行后 _inventory 的变化；4) snapshot 返回值是否为副本（避免引用泄露）",
+            "ana_source": "llm",
+            "ana_error": "",
+            "fix_source": "llm",
+            "fix_error": "",
+            "action": "accept",
+            "first_fail_assert": "snap = apply_ops([('add', 'a', 2), ('add', 'b', 1), ('remove', 'a', 1), ('noop', 'x', 9)], {'a': 1})\nassert snap == {'a': 2, 'b': 1}"
+          },
+          {
+            "round_no": 2,
+            "before_pass_cnt": 5,
+            "after_pass_cnt": 6,
+            "before_score": 0.8333333333333334,
+            "after_score": 1.0,
+            "trace_event_cnt": 0,
+            "trace_sum": "异常收敛点: NameError: NameError: name '_InventoryLedger__cfix_emit' is not defined @L24",
+            "trace_preview": [],
+            "root_cause": "在 remove 方法中，当库存扣减后为 0 时已删除该键（del self._inventory[name]），但后续仍尝试访问 self._inventory[name] 返回其值，导致 KeyError；题目要求扣减后为 0 时从快照中移除该商品，但返回值应为扣减后的库存（即 0），而非已删除键的值",
+            "fix_plan": "1. 在 remove 方法中，先计算扣减后的库存值（temp = self._inventory[name] - qty），再判断是否为 0；\n2. 若 temp == 0，则删除键并返回 0；否则更新库存并返回 temp；\n3. 避免在删除键后再次访问字典；\n4. 具体修改：将 self._inventory[name] -= qty 拆分为 temp = self._inventory[name] - qty；再根据 temp 是否为 0 决定是否删除键；最后返回 temp",
+            "inst_sugg": "下一轮建议记录 remove 方法中扣减前库存值、扣减后理论值（temp）、是否触发删除操作、返回值；特别关注 name='pen', qty=2 时的中间状态",
+            "ana_source": "llm",
+            "ana_error": "",
+            "fix_source": "llm",
+            "fix_error": "",
+            "action": "accept",
+            "first_fail_assert": "inv = InventoryLedger({'pen': 2})\nassert inv.remove('pen', 2) == 0\nassert inv.count('pen') == 0\nassert inv.snapshot() == {}"
+          }
+        ],
+        "final_cases": [
+          {
+            "assert_text": "inv = InventoryLedger({'apple': 2, 'banana': 1})\nassert inv.add('apple', 3) == 5\nassert inv.count('apple') == 5\nassert inv.total_items() == 6",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 23
+          },
+          {
+            "assert_text": "inv = InventoryLedger({'apple': 4})\nassert inv.remove('apple', 3) == 1\nassert inv.remove('apple', 2) is False\nassert inv.count('apple') == 1",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 17
+          },
+          {
+            "assert_text": "inv = InventoryLedger({'x': 1})\nassert inv.add('x', 0) is False\nassert inv.add('x', -1) is False\nassert inv.remove('x', 0) is False\nassert inv.remove('x', -5) is False\nassert inv.snapshot() == {'x': 1}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 61
+          },
+          {
+            "assert_text": "snap = apply_ops([('add', 'a', 2), ('add', 'b', 1), ('remove', 'a', 1), ('noop', 'x', 9)], {'a': 1})\nassert snap == {'a': 2, 'b': 1}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 59
+          },
+          {
+            "assert_text": "inv = InventoryLedger({'pen': 2})\nassert inv.remove('pen', 2) == 0\nassert inv.count('pen') == 0\nassert inv.snapshot() == {}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 20
+          },
+          {
+            "assert_text": "inv = InventoryLedger({'book': 1})\nsnap = inv.snapshot()\nsnap['book'] = 99\nassert inv.count('book') == 1",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 61
+          }
+        ],
+        "time_ms": 679,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 3,
+        "title": "ScoreReport 成绩报告模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n模块中必须定义：\n1. parse_records(lines)：解析形如 'name,score' 的字符串列表；name 两侧要 strip；score 必须是可解析整数，非法行忽略；返回 [(name, score), ...]；\n2. class ScoreReport(records)：records 为 (name, score) 二元组列表；\n3. average(name) 返回该学生所有成绩的平均值；若没有记录，返回 0；\n4. best_student() 返回平均分最高的学生姓名；若并列，返回字典序更小者；若没有记录，返回空字符串；\n5. passed_names(threshold=60) 返回平均分不低于 threshold 的学生姓名列表，去重后按字典序排序；\n6. summary() 返回字典：name -> {'count': 记录数, 'avg': 平均分, 'max': 最高分}。",
+        "total_cnt": 6,
+        "init_pass_cnt": 6,
+        "final_pass_cnt": 6,
+        "init_result": "pass",
+        "final_result": "pass",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "rows = parse_records([' alice,90 ', 'bob,70', 'bad', 'carol,x', 'alice, 60'])\nassert rows == [('alice', 90), ('bob', 70), ('alice', 60)]",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 56
+          },
+          {
+            "assert_text": "rep = ScoreReport([('alice', 90), ('alice', 60), ('bob', 80)])\nassert rep.average('alice') == 75\nassert rep.average('bob') == 80\nassert rep.average('none') == 0",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 18
+          },
+          {
+            "assert_text": "rep = ScoreReport([('bob', 80), ('alice', 90), ('alice', 70)])\nassert rep.best_student() == 'alice'",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 19
+          },
+          {
+            "assert_text": "rep = ScoreReport([('bob', 80), ('alice', 60), ('alice', 60), ('carol', 59)])\nassert rep.passed_names() == ['alice', 'bob']\nassert rep.passed_names(75) == ['bob']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 17
+          },
+          {
+            "assert_text": "rep = ScoreReport([('alice', 90), ('alice', 60), ('bob', 80)])\nsummary = rep.summary()\nassert summary['alice'] == {'count': 2, 'avg': 75, 'max': 90}\nassert summary['bob'] == {'count': 1, 'avg': 80, 'max': 80}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 20
+          },
+          {
+            "assert_text": "rep = ScoreReport([])\nassert rep.best_student() == ''\nassert rep.passed_names() == []\nassert rep.summary() == {}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 18
+          }
+        ],
+        "time_ms": 148,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 4,
+        "title": "IntervalBook 区间账本模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n所有区间都表示整数闭区间 [left, right]。模块中必须定义：\n1. merge_intervals(intervals)：忽略 left > right 的非法区间；对剩余区间按起点排序后合并重叠或相邻区间（例如 [1,2] 与 [3,5] 也要合并）；\n2. total_covered(intervals)：返回 merge_intervals(intervals) 后共覆盖了多少个整数；\n3. class IntervalBook：内部维护若干区间；add(left, right) 添加一个区间；contains(x) 判断整数 x 是否被任一区间覆盖；gaps(left, right) 返回闭区间 [left,right] 内未被覆盖的区间列表，也按闭区间表示。",
+        "total_cnt": 6,
+        "init_pass_cnt": 6,
+        "final_pass_cnt": 6,
+        "init_result": "pass",
+        "final_result": "pass",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "intervals = [(5, 5), (1, 2), (3, 4), (10, 12), (11, 13), (8, 6)]\nassert merge_intervals(intervals) == [(1, 5), (10, 13)]",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 19
+          },
+          {
+            "assert_text": "assert total_covered([(1, 3), (5, 5), (2, 4)]) == 5\nassert total_covered([(8, 6)]) == 0",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 18
+          },
+          {
+            "assert_text": "book = IntervalBook()\nbook.add(1, 3)\nbook.add(5, 7)\nbook.add(4, 4)\nassert book.contains(2) is True\nassert book.contains(4) is True\nassert book.contains(8) is False",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 60
+          },
+          {
+            "assert_text": "book = IntervalBook()\nbook.add(2, 4)\nbook.add(7, 8)\nassert book.gaps(1, 9) == [(1, 1), (5, 6), (9, 9)]",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 58
+          },
+          {
+            "assert_text": "book = IntervalBook()\nassert book.gaps(3, 2) == []\nassert book.gaps(1, 3) == [(1, 3)]",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 18
+          },
+          {
+            "assert_text": "book = IntervalBook()\nbook.add(1, 2)\nbook.add(3, 5)\nassert book.gaps(1, 5) == []",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 61
+          }
+        ],
+        "time_ms": 234,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 5,
+        "title": "TemplateEngine 模板渲染模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n模块中必须定义：\n1. find_placeholders(template)：从字符串 template 中按出现顺序提取占位符名称，语法为 {{name}}，花括号内两侧空白需要 strip；重复占位符只保留第一次出现；\n2. render_template(template, data)：把 template 中的 {{name}} 用 data[name] 的字符串值替换；若 data 中不存在对应键，则保留原占位符原样不动；\n3. class TemplateBatch(templates)：templates 为字符串列表；render_all(data) 返回逐个渲染后的结果列表；missing_keys(data) 返回所有模板中出现但 data 缺失的键，按字典序排序且去重；longest_template() 返回原始模板中长度最大的那个，若并列返回最早出现的。",
+        "total_cnt": 6,
+        "init_pass_cnt": 6,
+        "final_pass_cnt": 6,
+        "init_result": "pass",
+        "final_result": "pass",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "tpl = 'Hello {{ name }}, today is {{day}}. {{name}}!'\nassert find_placeholders(tpl) == ['name', 'day']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 181
+          },
+          {
+            "assert_text": "tpl = 'Hello {{ name }}, today is {{day}}.'\nassert render_template(tpl, {'name': 'Alice', 'day': 'Monday'}) == 'Hello Alice, today is Monday.'",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 113
+          },
+          {
+            "assert_text": "tpl = 'User={{user}}, Role={{role}}'\nassert render_template(tpl, {'user': 'tom'}) == 'User=tom, Role={{role}}'",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 163
+          },
+          {
+            "assert_text": "batch = TemplateBatch(['Hi {{name}}', 'Role={{role}}', '{{name}}/{{lang}}'])\nassert batch.render_all({'name': 'Bob', 'role': 'dev', 'lang': 'py'}) == ['Hi Bob', 'Role=dev', 'Bob/py']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 159
+          },
+          {
+            "assert_text": "batch = TemplateBatch(['Hi {{name}}', 'Role={{role}}', '{{name}}/{{lang}}'])\nassert batch.missing_keys({'name': 'Bob'}) == ['lang', 'role']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 116
+          },
+          {
+            "assert_text": "batch = TemplateBatch(['aa', 'bbbb', 'cccc'])\nassert batch.longest_template() == 'bbbb'",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 109
+          }
+        ],
+        "time_ms": 841,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 6,
+        "title": "GridAnalyzer 网格分析模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n网格 grid 使用字符串列表表示，例如 ['##.', '.#.']。模块中必须定义：\n1. neighbors4(grid, r, c)：返回坐标 (r,c) 在网格内的四邻接坐标列表，顺序固定为上、下、左、右，只保留合法坐标；\n2. island_sizes(grid, land='#')：按四联通统计所有由 land 组成的连通块大小，返回升序排序后的列表；\n3. class GridAnalyzer(grid)：largest_island(land='#') 返回最大连通块大小，不存在则为 0；perimeter(land='#') 返回所有 land 单元格的总周长，边界或相邻非 land 都计入周长。",
+        "total_cnt": 6,
+        "init_pass_cnt": 6,
+        "final_pass_cnt": 6,
+        "init_result": "pass",
+        "final_result": "pass",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "grid = ['abc', 'def', 'ghi']\nassert neighbors4(grid, 1, 1) == [(0, 1), (2, 1), (1, 0), (1, 2)]\nassert neighbors4(grid, 0, 0) == [(1, 0), (0, 1)]",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 41
+          },
+          {
+            "assert_text": "grid = ['##..', '.#..', '..##', '..##']\nassert island_sizes(grid) == [3, 4]",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 77
+          },
+          {
+            "assert_text": "ga = GridAnalyzer(['##..', '.#..', '..##', '..##'])\nassert ga.largest_island() == 4",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 77
+          },
+          {
+            "assert_text": "ga = GridAnalyzer(['##', '##'])\nassert ga.perimeter() == 8",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 75
+          },
+          {
+            "assert_text": "ga = GridAnalyzer(['#.#', '.#.', '#.#'])\nassert ga.largest_island() == 1\nassert ga.perimeter() == 20",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 77
+          },
+          {
+            "assert_text": "ga = GridAnalyzer([])\nassert ga.largest_island() == 0\nassert ga.perimeter() == 0\nassert island_sizes([]) == []",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 85
+          }
+        ],
+        "time_ms": 432,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 7,
+        "title": "TaskGraph 任务依赖图模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n输入 tasks 为 dict[str, list[str]]，表示任务到其前置依赖的映射。模块中必须定义：\n1. topo_sort(tasks)：若图合法且无环，则返回一个拓扑序；当有多个可选任务时，必须优先返回字典序更小者；若存在环，或依赖中出现 tasks 中不存在的任务名，则返回空列表；\n2. can_finish(tasks)：能完成返回 True，否则 False；其判断标准与 topo_sort 一致；\n3. class TaskGraph(tasks)：ready(done) 返回当前未完成且依赖都已在 done 集合中的任务列表，按字典序排序；blocked_count(done) 返回当前未完成且尚不可执行的任务数。",
+        "total_cnt": 6,
+        "init_pass_cnt": 6,
+        "final_pass_cnt": 6,
+        "init_result": "pass",
+        "final_result": "pass",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "tasks = {'build': ['lint', 'test'], 'lint': [], 'test': ['lint']} \nassert topo_sort(tasks) == ['lint', 'test', 'build']\nassert can_finish(tasks) is True",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 41
+          },
+          {
+            "assert_text": "tasks = {'a': ['b'], 'b': ['a']}\nassert topo_sort(tasks) == []\nassert can_finish(tasks) is False",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 87
+          },
+          {
+            "assert_text": "tasks = {'a': ['missing'], 'b': []}\nassert topo_sort(tasks) == []\nassert can_finish(tasks) is False",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 78
+          },
+          {
+            "assert_text": "tg = TaskGraph({'build': ['lint', 'test'], 'lint': [], 'test': ['lint']})\nassert tg.ready(set()) == ['lint']\nassert tg.ready({'lint'}) == ['test']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 73
+          },
+          {
+            "assert_text": "tg = TaskGraph({'a': [], 'b': ['a'], 'c': ['a'], 'd': ['b', 'c']})\nassert tg.ready({'a'}) == ['b', 'c']\nassert tg.blocked_count({'a'}) == 1\nassert tg.blocked_count({'a', 'b', 'c'}) == 0",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 84
+          },
+          {
+            "assert_text": "tasks = {'b': [], 'a': []}\nassert topo_sort(tasks) == ['a', 'b']",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 93
+          }
+        ],
+        "time_ms": 456,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      },
+      {
+        "problem_no": 8,
+        "title": "RouterTable 路由匹配模块",
+        "scene": "file",
+        "problem_text": "请直接生成一个完整的 Python 模块（一个 .py 文件），不要只写 solve 函数。\n模块中必须定义：\n1. split_path(path)：按 / 分割路径，忽略首尾和重复 / 产生的空段，返回段列表；例如 '/a//b/' -> ['a','b']；\n2. match_route(pattern, path)：pattern 与 path 都按 split_path 处理；pattern 中以 : 开头的段表示参数，如 /user/:id；只有段数完全一致时才算匹配；匹配成功返回参数字典，纯字面量段必须完全相等，不匹配则返回 None；\n3. class RouterTable：add(pattern, name) 追加一条路由；resolve(path) 按添加顺序返回第一条匹配成功的 (name, params)；若没有匹配项，返回 (None, {})。",
+        "total_cnt": 6,
+        "init_pass_cnt": 6,
+        "final_pass_cnt": 6,
+        "init_result": "pass",
+        "final_result": "pass",
+        "round_used": 0,
+        "repaired": false,
+        "gen_source": "llm",
+        "gen_error": "",
+        "rounds": [],
+        "final_cases": [
+          {
+            "assert_text": "assert split_path('/a//b/') == ['a', 'b']\nassert split_path('///') == []",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 22
+          },
+          {
+            "assert_text": "assert match_route('/user/:id', '/user/42') == {'id': '42'}\nassert match_route('/user/:id', '/user') is None",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 19
+          },
+          {
+            "assert_text": "assert match_route('/shop/:shop_id/item/:item_id', '/shop/7/item/9') == {'shop_id': '7', 'item_id': '9'}",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 21
+          },
+          {
+            "assert_text": "rt = RouterTable()\nrt.add('/user/list', 'user_list')\nrt.add('/user/:id', 'user_detail')\nassert rt.resolve('/user/list') == ('user_list', {})\nassert rt.resolve('/user/42') == ('user_detail', {'id': '42'})",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 61
+          },
+          {
+            "assert_text": "rt = RouterTable()\nrt.add('/post/:id', 'post_detail')\nrt.add('/post/:id/comment/:cid', 'comment_detail')\nassert rt.resolve('/post/3/comment/9') == ('comment_detail', {'id': '3', 'cid': '9'})",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 24
+          },
+          {
+            "assert_text": "rt = RouterTable()\nrt.add('/a/:x', 'ax')\nassert rt.resolve('/b/1') == (None, {})",
+            "result": "pass",
+            "actual_out": "",
+            "err_type": null,
+            "err_msg": null,
+            "time_ms": 65
+          }
+        ],
+        "time_ms": 212,
+        "rollback_cnt": 0,
+        "trace_non_empty": false
+      }
+    ]
+  }
+}
