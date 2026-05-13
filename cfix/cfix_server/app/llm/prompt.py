@@ -121,6 +121,7 @@ def build_gen_prompt(problem_text: str, scene: str = 'func', title: str = '', ca
     rules = '\n'.join(f'{idx + 1}. {item}' for idx, item in enumerate(_scene_rules(scene)))
     public_api_text = _required_public_api_text(problem_text, scene=scene, title=title)
     case_contract_text = build_case_contract_text(problem_text, case_texts, scene=scene, title=title)
+    problem_body = (problem_text or "").strip()
     return (
         '你是一名严格的 Python 代码生成助手。\n'
         '请根据题目描述直接返回最终可运行代码。\n'
@@ -134,7 +135,7 @@ def build_gen_prompt(problem_text: str, scene: str = 'func', title: str = '', ca
         f'{case_contract_text}'
         + (f'任务标题：{title}\n\n' if title else '')
         + '题目描述：\n'
-        f'{(problem_text or '').strip()}\n'
+        f'{problem_body}\n'
     )
 
 
@@ -143,6 +144,7 @@ def build_gen_bundle_prompt(problem_text: str, scene: str = 'func', title: str =
     cfg_text = _case_cfg_text(case_cfg)
     public_api_text = _required_public_api_text(problem_text, scene=scene, title=title)
     case_contract_text = build_case_contract_text(problem_text, case_texts, scene=scene, title=title)
+    problem_body = (problem_text or "").strip()
     schema = {
         'code': '完整 Python 代码字符串',
         'cases': [
@@ -173,7 +175,7 @@ def build_gen_bundle_prompt(problem_text: str, scene: str = 'func', title: str =
         f'{json.dumps(schema, ensure_ascii=False, indent=2)}\n\n'
         f'任务标题：{title or "未命名任务"}\n'
         '题目描述：\n'
-        f'{(problem_text or '').strip()}\n'
+        f'{problem_body}\n'
     )
 
 
