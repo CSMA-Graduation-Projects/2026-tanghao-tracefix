@@ -73,8 +73,8 @@ req.interceptors.response.use(
 
       if (!silent) ElMessage.error('登录状态已失效，请重新登录')
 
-      if (!location.pathname.includes('/login')) {
-        location.href = '/login'
+      if (!location.hash.includes('/login')) {
+        location.hash = '#/login'
       }
       return Promise.reject(error)
     }

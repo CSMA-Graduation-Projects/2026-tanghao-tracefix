@@ -14,7 +14,7 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./cfix_schema.sql:/docker-entrypoint-initdb.d/01-cfix_schema.sql:ro
+      - ./cfix/cfix_schema.sql:/docker-entrypoint-initdb.d/01-cfix_schema.sql:ro
     healthcheck:
       test:
         - CMD-SHELL
@@ -35,6 +35,7 @@ services:
     environment:
       APP_ENV: docker
       APP_DEBUG: "true"
+      CORS_ALLOW_ORIGINS: ${CFIX_CORS_ALLOW_ORIGINS:-http://127.0.0.1:8000,http://127.0.0.1:5173,http://localhost:5173}
       MYSQL_HOST: mysql
       MYSQL_PORT: "3306"
       MYSQL_USER: root
@@ -52,7 +53,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./cfix_server:/app
+      - ./cfix/cfix_server:/app
       - backend_pip_cache:/root/.cache/pip
     command: >
       sh -c "
@@ -69,12 +70,12 @@ services:
     depends_on:
       - backend
     environment:
-      VITE_API_BASE_URL: http://127.0.0.1:8000/api/v1
+      VITE_API_BASE_URL: ${CFIX_PUBLIC_API_BASE_URL:-http://127.0.0.1:8000/api/v1}
       CHOKIDAR_USEPOLLING: "true"
     ports:
       - "5173:5173"
     volumes:
-      - ./cfix_frontend:/web
+      - ./cfix/cfix_frontend:/web
       - frontend_node_modules:/web/node_modules
     command: >
       sh -c "

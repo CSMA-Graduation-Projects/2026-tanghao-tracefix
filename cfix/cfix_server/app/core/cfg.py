@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     app_env: str = "dev"
     app_debug: bool = True
     api_v1_str: str = "/api/v1"
+    cors_allow_origins: str = "http://127.0.0.1:8000,http://127.0.0.1:5173,http://localhost:5173"
 
     mysql_host: str = "127.0.0.1"
     mysql_port: int = 3306
@@ -60,6 +61,15 @@ class Settings(BaseSettings):
             f"mysql+pymysql://{self.mysql_user}:{self.mysql_password}"
             f"@{self.mysql_host}:{self.mysql_port}/{self.mysql_db}?charset=utf8mb4"
         )
+
+    @property
+    def cors_origins(self) -> list[str]:
+        items = [item.strip() for item in str(self.cors_allow_origins or "").split(",") if item.strip()]
+        return items or [
+            "http://127.0.0.1:8000",
+            "http://127.0.0.1:5173",
+            "http://localhost:5173",
+        ]
 
     @property
     def llm_ready(self) -> bool:
