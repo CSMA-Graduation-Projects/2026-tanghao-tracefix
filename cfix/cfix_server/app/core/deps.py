@@ -1,3 +1,5 @@
+"""依赖注入模块，负责提供后端运行所需的基础能力。"""
+
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session

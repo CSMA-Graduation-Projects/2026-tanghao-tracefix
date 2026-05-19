@@ -1,3 +1,5 @@
+"""分析代理封装，负责承接对应阶段的大模型调用。"""
+
 from __future__ import annotations
 
 from collections import Counter

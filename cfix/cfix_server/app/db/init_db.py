@@ -1,3 +1,5 @@
+"""数据库初始化模块，负责数据库基础设施与连接管理。"""
+
 from app.db.sess import engine
 from app.db.base import Base
 from app import models  # noqa: F401

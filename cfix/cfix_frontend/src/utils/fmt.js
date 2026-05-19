@@ -1,3 +1,5 @@
+// 格式化工具函数，封装常用文本与数值格式化逻辑。
+
 export function fmtStatusLabel(status) {
   const map = {
     draft: '草稿',

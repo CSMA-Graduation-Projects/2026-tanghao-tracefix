@@ -1,3 +1,5 @@
+// 复制工具函数，封装文本复制等浏览器能力。
+
 import { ElMessage } from 'element-plus'
 
 export async function copyText(text) {

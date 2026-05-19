@@ -1,3 +1,5 @@
+"""安全与鉴权模块，负责提供后端运行所需的基础能力。"""
+
 from datetime import datetime, timedelta, timezone
 from jose import jwt, JWTError
 from passlib.context import CryptContext

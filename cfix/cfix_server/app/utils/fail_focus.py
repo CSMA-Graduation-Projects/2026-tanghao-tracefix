@@ -1,3 +1,5 @@
+"""失败聚焦工具模块，负责提供可复用的辅助逻辑。"""
+
 from __future__ import annotations
 
 from collections import Counter

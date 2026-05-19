@@ -1,3 +1,5 @@
+/* 全局样式入口，负责基础主题和页面通用样式。 */
+
 :root {
   color-scheme: light;
   font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;

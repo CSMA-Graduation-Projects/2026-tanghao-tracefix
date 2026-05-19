@@ -1,8 +1,12 @@
+"""配置管理模块，负责提供后端运行所需的基础能力。"""
+
 from functools import lru_cache
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
+    """集中声明环境变量，并提供运行时常用的派生配置。"""
+
     app_name: str = "cfix-server"
     app_env: str = "dev"
     app_debug: bool = True
@@ -57,6 +61,7 @@ class Settings(BaseSettings):
 
     @property
     def db_url(self) -> str:
+        # 统一拼接 SQLAlchemy 使用的 MySQL 连接串，避免各处手写格式。
         return (
             f"mysql+pymysql://{self.mysql_user}:{self.mysql_password}"
             f"@{self.mysql_host}:{self.mysql_port}/{self.mysql_db}?charset=utf8mb4"
@@ -64,6 +69,7 @@ class Settings(BaseSettings):
 
     @property
     def cors_origins(self) -> list[str]:
+        # 把环境变量里的逗号分隔配置展开成 FastAPI 可直接使用的列表。
         items = [item.strip() for item in str(self.cors_allow_origins or "").split(",") if item.strip()]
         return items or [
             "http://127.0.0.1:8000",

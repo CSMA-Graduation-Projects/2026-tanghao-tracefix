@@ -1,3 +1,5 @@
+// 工作台界面状态仓库，负责维护当前任务与面板联动状态。
+
 import { defineStore } from 'pinia'
 
 

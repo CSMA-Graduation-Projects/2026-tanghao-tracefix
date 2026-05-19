@@ -1,3 +1,5 @@
+"""Docker 沙箱执行器模块，负责代码执行隔离、调度与轨迹包装。"""
+
 import json
 import shutil
 import subprocess

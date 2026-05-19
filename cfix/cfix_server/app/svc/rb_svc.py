@@ -1,3 +1,5 @@
+"""回退决策服务，负责封装对应业务域的核心流程。"""
+
 from dataclasses import dataclass
 from hashlib import sha256
 

@@ -1,3 +1,5 @@
+"""用户数据集存储模块，负责维护项目内置数据与持久化文件读写。"""
+
 from __future__ import annotations
 
 import json

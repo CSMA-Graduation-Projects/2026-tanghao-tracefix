@@ -1,3 +1,5 @@
+"""模型配置服务，负责封装对应业务域的核心流程。"""
+
 from __future__ import annotations
 
 import base64

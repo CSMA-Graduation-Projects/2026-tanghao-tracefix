@@ -1,3 +1,5 @@
+"""运行执行服务，负责封装对应业务域的核心流程。"""
+
 from sqlalchemy.orm import Session
 
 from app.models.run import RunRecord, CaseResult
@@ -10,6 +12,8 @@ from app.utils.fail_focus import build_file_focus_summary
 
 
 class RunService:
+    """负责编排测试执行、聚合失败信息并产出 trace 数据。"""
+
     def __init__(self):
         self.runner = Runner()
         self.trace_svc = TraceService()
@@ -30,6 +34,7 @@ class RunService:
             return None
 
         def score(item):
+            # 优先保留最能代表真实业务失败的用例，尽量压低超时和插桩噪声的权重。
             case, rs, _merged_prelude, _block_assert = item
             msg = rs.err_msg or rs.tb_text or ''
             timeout = 1 if (rs.err_type or '') == 'TimeoutError' else 0
@@ -182,6 +187,7 @@ class RunService:
         trace_items = []
         trace_sum = ''
         if trace_on and exec_cases:
+            # trace 优先围绕主失败用例展开；若本轮全过，则回退到首个执行用例做基线轨迹。
             trace_case = first_fail_case or exec_cases[0]
             trace_err_text = merged_fail_text or ((first_fail.tb_text or first_fail.err_msg or '') if first_fail else '')
             if primary_fail:

@@ -1,3 +1,5 @@
+"""任务编排服务，负责封装对应业务域的核心流程。"""
+
 import traceback
 from hashlib import sha256
 from sqlalchemy.orm import Session
@@ -27,7 +29,10 @@ from app.utils.case_block import normalize_case_rows, has_assert_line
 
 
 class TaskService:
+    """负责把任务创建、执行、修复、lesson 与回退决策串成完整主流程。"""
+
     def __init__(self):
+        # 各子服务在这里集中组装，便于任务链路统一编排。
         self.gen_svc = GenService()
         self.run_svc = RunService()
         self.plan_svc = PlanService()
@@ -97,6 +102,7 @@ class TaskService:
         return raw
 
     def create_new_task(self, db: Session, user_id: int, payload):
+        # 若前端未显式选择模型，则兜底落到当前用户的默认模型配置。
         model_id = payload.model_id if getattr(payload, 'model_id', None) is not None else resolve_default_model_id(db, user_id)
         task = Task(
             user_id=user_id,
@@ -126,7 +132,7 @@ class TaskService:
             )
             for item in payload.cases
         ]
-        # 对原始测试用例行进行标准化处理
+        # 进入数据库前先统一整理 block/setup 结构，避免后续运行阶段再补救脏数据。
         norm_cases = normalize_case_rows(task.scene, raw_cases)
         # 将标准化后的测试用例逐一添加到数据库中
         for item in norm_cases:

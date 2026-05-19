@@ -1,3 +1,5 @@
+"""场景策略模块，负责提供后端运行所需的基础能力。"""
+
 from __future__ import annotations
 
 from dataclasses import dataclass

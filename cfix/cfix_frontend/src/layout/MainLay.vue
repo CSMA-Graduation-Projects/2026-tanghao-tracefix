@@ -49,6 +49,7 @@
 </template>
 
 <script setup>
+// 主布局组件，负责导航、用户信息与页面容器。
 import { computed, ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
@@ -61,6 +62,7 @@ const userStore = useUserStore()
 const taskUiStore = useTaskUiStore()
 const logoutLoading = ref(false)
 
+// 顶部导航与主路由保持一一对应，便于布局层统一跳转。
 const navs = [
   { path: '/workbench', label: '工作台' },
   { path: '/history', label: '历史任务' },
@@ -93,6 +95,7 @@ async function handleLogout() {
     try {
       await logout()
     } catch {}
+    // 无论后端登出接口是否成功，本地状态都要清干净，避免残留旧任务上下文。
     taskUiStore.clearAll()
     userStore.clearLogin()
     ElMessage.success('已退出登录')
@@ -103,6 +106,7 @@ async function handleLogout() {
 }
 
 onMounted(() => {
+  // 刷新页面后若本地仍有 token，则补拉一次用户资料恢复顶部信息。
   if (userStore.token) {
     userStore.fetchProfile().catch(() => {})
   }

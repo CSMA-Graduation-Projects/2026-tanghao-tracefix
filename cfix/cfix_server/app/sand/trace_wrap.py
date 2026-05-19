@@ -1,3 +1,5 @@
+"""轨迹包装器模块，负责代码执行隔离、调度与轨迹包装。"""
+
 import json
 
 TRACE_PREFIX = "__CFIX_TRACE__"

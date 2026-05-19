@@ -1,3 +1,5 @@
+"""大模型客户端工厂模块，负责统一接入和适配外部大模型能力。"""
+
 from app.llm.config import LLMRuntimeConfig, get_env_llm_config
 from app.llm.deepseek_cli import DeepSeekClient
 from app.llm.openai_cli import OpenAIClient

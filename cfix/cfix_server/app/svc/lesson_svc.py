@@ -1,3 +1,5 @@
+"""经验总结服务，负责封装对应业务域的核心流程。"""
+
 from sqlalchemy.orm import Session
 
 from app.models.lesson import Lesson

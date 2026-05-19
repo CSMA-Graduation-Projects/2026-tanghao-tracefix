@@ -1,3 +1,5 @@
+// 数据集相关的前端接口封装，负责获取可用题库与数据集详情。
+
 import req from '@/utils/req'
 
 export function listDataset() {

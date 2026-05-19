@@ -10,5 +10,6 @@
 </template>
 
 <script setup>
+// 轨迹表格组件，负责展示执行 trace 明细。
 defineProps({ rows: { type: Array, default: () => [] } })
 </script>

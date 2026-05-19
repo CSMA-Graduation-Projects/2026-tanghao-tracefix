@@ -1,3 +1,5 @@
+"""大模型客户端抽象模块，负责统一接入和适配外部大模型能力。"""
+
 import ast
 import json
 import re

@@ -1,3 +1,5 @@
+"""本地安全执行器模块，负责代码执行隔离、调度与轨迹包装。"""
+
 import ast
 import contextlib
 import importlib.util

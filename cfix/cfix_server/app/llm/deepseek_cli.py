@@ -1,3 +1,5 @@
+"""DeepSeek 客户端模块，负责统一接入和适配外部大模型能力。"""
+
 from app.llm.config import LLMRuntimeConfig
 from app.llm.qwen_cli import QwenClient
 

@@ -731,6 +731,7 @@
 </template>
 
 <script setup>
+// 实验列表页面，负责创建、启动与查看实验任务。
 import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useRouter } from 'vue-router'

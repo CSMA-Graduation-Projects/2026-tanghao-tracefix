@@ -6,5 +6,6 @@
 </template>
 
 <script setup>
+// 任务列表页面，负责展示当前会话下的任务集合。
 import PageHead from '@/comps/PageHead.vue'
 </script>

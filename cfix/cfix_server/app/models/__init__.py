@@ -1,3 +1,5 @@
+"""ORM 模型包入口，汇总核心实体定义。"""
+
 from .user import User
 from .chat import ChatSession, ChatMessage
 from .model_cfg import ModelCfg

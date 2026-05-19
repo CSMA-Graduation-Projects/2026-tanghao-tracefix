@@ -1,3 +1,5 @@
+"""流式输出相关的 FastAPI 路由，负责暴露对应业务域接口。"""
+
 from fastapi import APIRouter, Depends
 from fastapi.responses import StreamingResponse
 from app.core.deps import get_current_user

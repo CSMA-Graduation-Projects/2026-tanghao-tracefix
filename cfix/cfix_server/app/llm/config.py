@@ -1,3 +1,5 @@
+"""大模型配置模块，负责统一接入和适配外部大模型能力。"""
+
 from dataclasses import dataclass
 
 from app.core.cfg import settings

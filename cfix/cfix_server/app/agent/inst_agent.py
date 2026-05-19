@@ -1,3 +1,5 @@
+"""指令代理封装，负责承接对应阶段的大模型调用。"""
+
 import ast
 from dataclasses import dataclass
 

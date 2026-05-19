@@ -1,3 +1,5 @@
+// 用户状态仓库，负责维护登录信息与个人资料。
+
 import { defineStore } from 'pinia'
 import { getMe } from '@/api/auth'
 

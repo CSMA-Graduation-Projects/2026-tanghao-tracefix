@@ -1,3 +1,5 @@
+"""Qwen 客户端模块，负责统一接入和适配外部大模型能力。"""
+
 import json
 import time
 from urllib import error, request

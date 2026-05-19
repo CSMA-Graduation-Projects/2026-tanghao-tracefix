@@ -13,6 +13,7 @@
 </template>
 
 <script setup>
+// 页面头部组件，负责统一展示页面标题与说明。
 defineProps({
   title: { type: String, required: true },
   desc: { type: String, default: '' }

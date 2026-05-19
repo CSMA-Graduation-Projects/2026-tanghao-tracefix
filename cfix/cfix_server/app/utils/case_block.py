@@ -1,3 +1,5 @@
+"""测试块解析工具模块，负责提供可复用的辅助逻辑。"""
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field

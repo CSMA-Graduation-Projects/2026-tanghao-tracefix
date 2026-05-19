@@ -246,6 +246,7 @@
 </template>
 
 <script setup>
+// 数据集页面，负责展示和浏览题库数据。
 import { onMounted, reactive, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useRouter } from 'vue-router'

@@ -1164,6 +1164,7 @@
 </template>
 
 <script setup>
+// 工作台页面，负责发起生成、运行、修复和结果查看。
 defineOptions({ name: 'WorkBench' })
 import { computed, nextTick, onActivated, onMounted, onDeactivated, reactive, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'

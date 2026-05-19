@@ -1,3 +1,5 @@
+"""修复服务，负责封装对应业务域的核心流程。"""
+
 from dataclasses import dataclass
 from hashlib import sha256
 
@@ -20,6 +22,8 @@ class FixVersionResult:
 
 
 class FixService:
+    """负责整合错误上下文并生成新的修复候选版本。"""
+
     def create_fix_version(
         self,
         db: Session,
@@ -39,6 +43,7 @@ class FixService:
         agent = FixAgent(client=resolve_llm_client(db, user_id=task.user_id if task else None, model_id=task.model_id if task else None))
         lesson_text = ""
         if lesson_on:
+            # 只截取最近几条 lesson，避免把修复提示撑得过长并稀释当前失败信号。
             lessons = list_lessons(db, task_id)
             lesson_text = "\n".join([x.lesson_text or "" for x in lessons[:3]])
             lesson_text = summarize_lesson_history(lesson_text, scene=scene)
@@ -70,6 +75,7 @@ class FixService:
                 raise RuntimeError('修复代理返回空代码')
             note = '自动修复版本'
         except Exception as exc:  # noqa: BLE001
+            # 修复链路失败时保留基线代码入库，避免任务因单次模型异常直接中断。
             repair_error = str(exc)
             degraded = True
             new_code = code_text

@@ -11,6 +11,7 @@
 </template>
 
 <script setup>
+// 代码块展示组件，负责渲染代码内容并提供辅助交互。
 defineProps({
   title: { type: String, required: true },
   content: { type: String, default: '' },

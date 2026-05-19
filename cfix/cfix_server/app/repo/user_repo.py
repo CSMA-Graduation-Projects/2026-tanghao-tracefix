@@ -1,3 +1,5 @@
+"""用户数据访问层，负责组织对应实体的数据库读写。"""
+
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from app.models.user import User

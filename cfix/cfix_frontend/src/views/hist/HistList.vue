@@ -84,6 +84,7 @@
 </template>
 
 <script setup>
+// 历史任务页面，负责查看任务记录与版本信息。
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import PageHead from '@/comps/PageHead.vue'

@@ -136,6 +136,7 @@
 </template>
 
 <script setup>
+// 系统设置页面，负责模型和系统参数配置。
 import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import PageHead from '@/comps/PageHead.vue'

@@ -1,3 +1,5 @@
+"""沙箱执行调度模块，负责代码执行隔离、调度与轨迹包装。"""
+
 from app.core.cfg import settings
 from app.sand.docker_runner import DockerRunner
 from app.sand.safe_exec import exec_python, exec_python_case

@@ -12,6 +12,7 @@
 </template>
 
 <script setup>
+// 反馈卡片组件，负责展示运行反馈与错误摘要。
 defineProps({
   feedback: { type: Object, default: null }
 })

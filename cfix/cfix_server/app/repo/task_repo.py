@@ -1,3 +1,5 @@
+"""任务数据访问层，负责组织对应实体的数据库读写。"""
+
 from __future__ import annotations
 
 from sqlalchemy import delete, desc, select, update

@@ -1,3 +1,5 @@
+"""任务相关的 FastAPI 路由，负责暴露对应业务域接口。"""
+
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends, HTTPException

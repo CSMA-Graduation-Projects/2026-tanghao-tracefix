@@ -8,6 +8,7 @@
 </template>
 
 <script setup>
+// 简单统计组件，负责展示单个核心指标。
 defineProps({ items: { type: Array, default: () => [] } })
 </script>
 

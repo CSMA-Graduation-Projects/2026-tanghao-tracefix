@@ -1,3 +1,5 @@
+"""模型配置领域的 ORM 模型定义，用于映射数据库表结构。"""
+
 from sqlalchemy import BigInteger, Boolean, DateTime, ForeignKey, Index, Integer, String, Text, UniqueConstraint, func
 from sqlalchemy.orm import Mapped, mapped_column
 from app.db.base import Base

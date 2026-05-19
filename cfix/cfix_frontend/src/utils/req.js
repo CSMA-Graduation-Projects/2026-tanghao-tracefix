@@ -1,3 +1,5 @@
+// 请求工具封装，统一处理 HTTP 请求实例与拦截逻辑。
+
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 

@@ -1,3 +1,5 @@
+"""大模型提示词模块，负责统一接入和适配外部大模型能力。"""
+
 from __future__ import annotations
 
 import json

@@ -1,3 +1,5 @@
+"""实验领域的请求与响应模型定义，约束前后端交互数据结构。"""
+
 from pydantic import BaseModel, ConfigDict
 
 

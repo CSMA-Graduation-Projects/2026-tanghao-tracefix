@@ -31,6 +31,7 @@
 </template>
 
 <script setup>
+// 登录页面，负责输入账号并恢复用户登录态。
 import { reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'

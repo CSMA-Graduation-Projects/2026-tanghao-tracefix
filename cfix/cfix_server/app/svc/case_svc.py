@@ -1,3 +1,5 @@
+"""测试用例服务，负责封装对应业务域的核心流程。"""
+
 from __future__ import annotations
 
 from dataclasses import dataclass

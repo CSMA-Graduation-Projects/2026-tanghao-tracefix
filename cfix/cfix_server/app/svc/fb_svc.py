@@ -1,3 +1,5 @@
+"""反馈服务，负责封装对应业务域的核心流程。"""
+
 def build_fb(err_type: str | None, err_msg: str | None, line_no: int | None, pass_cnt: int, total_cnt: int, trace_sum: str | None, time_ms: int):
     return {
         "err_type": err_type,

@@ -1,3 +1,5 @@
+// 认证相关的前端接口封装，统一处理登录态请求。
+
 import req from '@/utils/req'
 
 /**

@@ -1,3 +1,5 @@
+// 统一导出前端接口模块，便于页面按领域复用请求方法。
+
 export * from './auth'
 export * from './chat'
 export * from './task'
